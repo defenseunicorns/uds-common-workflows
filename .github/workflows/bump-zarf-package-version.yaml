@@ -1,14 +1,19 @@
-name: Bump version
+name: Bump Zarf Package Version
 on:
-  push:
-    branches:
-      - master
-    paths-ignore:
-      - 'zarf.yaml'
-      - 'CHANGELOG.md'
+  workflow_call:
+    inputs:
+      working-dir:
+        required: true
+        type: string
+    secrets:
+      GITHUB_TOKEN_ACTION:
+        required: true
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  version-zarf:
+    runs-on: ubuntu-latest  
+    env:
+      working-directory: ${{inputs.working-dir}}
 
     steps:
     - uses: actions/checkout@v1

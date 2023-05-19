@@ -1,0 +1,19 @@
+name: Bump version
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test-workflows:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./test1
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Bump Version
+        uses: ./.github/workflows/bump-zarf-package-version
+        secrets: inherit
+        with: 
+          working-dir: ${{env.working-directory}}
+  
