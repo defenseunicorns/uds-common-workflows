@@ -1,0 +1,30 @@
+name: Bump Zarf Package Version
+on:
+  workflow_call:
+    inputs:
+      working-dir:
+        required: true
+        type: string
+    secrets:
+      GITHUB_TOKEN_ACTION:
+        required: true
+
+jobs:
+  version-zarf:
+    runs-on: ubuntu-latest  
+    env:
+      working-directory: ${{inputs.working-dir}}
+
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN_ACTION }}
+    - name: Bump version and push tag
+      uses: TriPSs/conventional-changelog-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN_ACTION }}
+        git-message: 'chore(release): {version}'
+        tag-prefix: 'v'
+        output-file: 'CHANGELOG.md'
+        version-file: zarf.yaml
+        version-path: metadata.version
