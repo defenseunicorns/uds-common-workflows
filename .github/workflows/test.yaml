@@ -6,7 +6,7 @@ on:
 jobs:
   version-zarf-package:
     name: Version Zarf Package
-    uses: defenseunicorns/uds-common-workflows/.github/workflows/bump-zarf-package-version@main
+    uses: defenseunicorns/uds-common-workflows/.github/workflows/bump-zarf-package-version.yaml@main
     secrets: inherit
     with: 
       working-dir: ./test1
