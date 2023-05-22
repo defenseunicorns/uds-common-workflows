@@ -9,8 +9,6 @@ on:
 jobs:
   version-zarf:
     runs-on: ubuntu-latest  
-    env:
-      working-directory: ${{inputs.working-dir}}
 
     steps:
     - uses: actions/checkout@v3
@@ -22,6 +20,8 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         git-message: 'chore(release): {version}'
         tag-prefix: 'v'
-        output-file: 'CHANGELOG.md'
-        version-file: ${{inputs.working-dir}}/zarf.yaml
+        output-file: '${{inputs.working-dir}}/CHANGELOG.md'
+        version-file: '${{inputs.working-dir}}/zarf.yaml'
         version-path: metadata.version
+        fallback-version: '0.1.0'
+        skip-ci: true
