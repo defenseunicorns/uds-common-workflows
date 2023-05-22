@@ -25,3 +25,4 @@ jobs:
         version-path: metadata.version
         fallback-version: '0.1.0'
         skip-ci: true
+        skip-on-empty: false
