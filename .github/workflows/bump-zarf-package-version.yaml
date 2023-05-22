@@ -23,5 +23,5 @@ jobs:
         git-message: 'chore(release): {version}'
         tag-prefix: 'v'
         output-file: 'CHANGELOG.md'
-        version-file: zarf.yaml
+        version-file: ${{inputs.working-dir}}/zarf.yaml
         version-path: metadata.version
