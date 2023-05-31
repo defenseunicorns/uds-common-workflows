@@ -1,28 +1,20 @@
 name: Bump Zarf Package Version
 on:
-  workflow_call:
-    inputs:
-      working-dir:
-        required: true
-        type: string
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
-  version-zarf:
-    runs-on: ubuntu-latest  
-
+  release-please:
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Bump version and push tag
-      uses: TriPSs/conventional-changelog-action@v3
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        git-message: 'chore(release): {version}'
-        tag-prefix: 'v'
-        output-file: '${{inputs.working-dir}}/CHANGELOG.md'
-        version-file: '${{inputs.working-dir}}/zarf.yaml'
-        version-path: metadata.version
-        fallback-version: '0.1.0'
-        skip-ci: true
-        skip-on-empty: false
+      - uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: simple
+          package-name: zarf-podinfos
+          extra-files: |
+            test1/zarf.yaml
