@@ -18,4 +18,4 @@ jobs:
         with:
           release-type: simple
           package-name: zarf-dummy
-          extra-files: './test1/zarf.yaml'
+          extra-files: '/test1/zarf.yaml'
