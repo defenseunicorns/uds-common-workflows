@@ -9,4 +9,4 @@ jobs:
     uses: defenseunicorns/uds-common-workflows/.github/workflows/bump-zarf-package-version.yaml@main
     secrets: inherit
     with: 
-      working-dir: ./test1
+      working-dir: test1
