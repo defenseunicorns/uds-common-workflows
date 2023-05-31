@@ -1,8 +1,6 @@
 name: Bump Zarf Package Version
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
 
 permissions:
   contents: write
