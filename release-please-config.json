@@ -1,0 +1,16 @@
+{
+    "packages": {
+      "test1": {
+        "release-type": "simple",
+        "draft": false,
+        "changelog-path": "CHANGELOG.md",
+        "extra-files": [
+            {
+              "type": "yaml",
+              "path": "test1/zarf.yaml",
+              "jsonpath": "$.metadata.version"
+            }
+          ]
+      }
+    }
+  }

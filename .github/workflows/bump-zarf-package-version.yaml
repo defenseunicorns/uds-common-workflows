@@ -17,6 +17,7 @@ jobs:
       - uses: google-github-actions/release-please-action@v3
       # https://github.com/google-github-actions/release-please-action
         with:
+          command: manifest
           release-type: simple
-          extra-files: ${{ inputs.working-dir }}/zarf.yaml
+          # extra-files: ${{ inputs.working-dir }}/zarf.yaml
    
