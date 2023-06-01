@@ -18,5 +18,5 @@ jobs:
       # https://github.com/google-github-actions/release-please-action
         with:
           release-type: simple
-          extra-files: "$working-dir/zarf.yaml"
+          extra-files: ${{ inputs.working-dir }}/zarf.yaml
    
