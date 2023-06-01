@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.2](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.1...v1.0.2) (2023-06-01)
+
+
+### Bug Fixes
+
+* Fix path for zarf.yaml ([28d90b0](https://github.com/defenseunicorns/uds-common-workflows/commit/28d90b054a932fac9cf821ff5f1c91cabf0feebd))
+* test updating zarf.yaml ([86796aa](https://github.com/defenseunicorns/uds-common-workflows/commit/86796aaa8cb17cd925ab3087b9e4e23cb22d7101))
+* version zarf.yaml ([482c640](https://github.com/defenseunicorns/uds-common-workflows/commit/482c640e33d84aa1f2064fec16a9dc5863be0c03))
+
 ## [1.0.1](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.0...v1.0.1) (2023-06-01)
 
 
