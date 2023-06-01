@@ -2,5 +2,6 @@ kind: ZarfPackageConfig
 metadata:
   name: dummy-zarf
   description: "Dummy Zarf config for workflow testing"
-  version: v0.0.1
-
+  # x-release-please-start-version
+  version: 0.0.1
+  # x-release-please-end

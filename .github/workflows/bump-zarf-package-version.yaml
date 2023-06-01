@@ -18,9 +18,5 @@ jobs:
       # https://github.com/google-github-actions/release-please-action
         with:
           release-type: simple
-          package-name: zarf-dummy
-          extra-files: 
-            - type: yaml
-              path: /test1/zarf.yaml
-              jsonpath: '$.metadata.version'
+          extra-files: "$working-dir/zarf.yaml"
    
