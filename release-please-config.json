@@ -1,6 +1,6 @@
 {
     "packages": {
-      "test1": {
+      ".": {
         "release-type": "simple",
         "draft": false,
         "changelog-path": "CHANGELOG.md",
