@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.17](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.16...v1.0.17) (2023-06-02)
+
+
+### Bug Fixes
+
+* for the love of all that's holy... ([0b8280f](https://github.com/defenseunicorns/uds-common-workflows/commit/0b8280f359a39442f7822c61cca1f193ecf17d7c))
+
 ## [1.0.16](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.15...v1.0.16) (2023-06-02)
 
 
