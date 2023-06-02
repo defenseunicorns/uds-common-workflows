@@ -11,9 +11,8 @@ permissions:
 jobs:
   dummy:
     runs-on: ubuntu-latest
-    if: ${{github.ref_type == 'tag'}}
     steps:
       - name: Any Name Bash Test Step
         shell: bash
         run: |
-          echo "Triggered by tag creation"
+          echo "Triggered by tag creation ${{github.ref_type == 'tag'}} ${{github.ref_type}}"
