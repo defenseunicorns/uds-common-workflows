@@ -1,3 +1,3 @@
-# uds-common-workflows
+# UDS Common Workflows
 
 Repository containers common GitHub workflows and actions for UDS
