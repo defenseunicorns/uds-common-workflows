@@ -2,11 +2,8 @@ name: Publish
 
 # Will remove before merge and make it only tags
 on:
-  push:
-    branches:
-      - main
-    tags:
-      - "*"
+  release:
+    types: [published]
 
 permissions:
   contents: read
