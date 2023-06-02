@@ -17,4 +17,8 @@ jobs:
       - name: Publish
         shell: bash
         run: |
-          echo "Triggered by tag creation ${{github.ref_type == 'tag'}} ${{github.ref_type}}"
+          echo "Triggered by tag creation"
+          echo "github.ref_type: ${{github.ref_type}}"
+          echo "github.ref: ${{github.ref}}"
+          echo "github.event: ${{github.event}}"
+          echo "github.ref_name: ${{github.ref_name}}"
