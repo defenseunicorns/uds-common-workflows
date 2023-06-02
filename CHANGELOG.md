@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.6](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.5...v1.0.6) (2023-06-02)
+
+
+### Bug Fixes
+
+* correct publish action permission ([a470f26](https://github.com/defenseunicorns/uds-common-workflows/commit/a470f26bc5131fede4bcd8dba38a4d570d520000))
+
 ## [1.0.5](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.4...v1.0.5) (2023-06-02)
 
 
