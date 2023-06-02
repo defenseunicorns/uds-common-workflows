@@ -20,8 +20,4 @@ jobs:
         with:
           command: manifest # use configs in release-please-config.json
           release-type: simple
-   
-      - name: Log
-        shell: bash
-        run: |
-          echo "github.actor: ${{github.actor}}"
+
