@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.9](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.8...v1.0.9) (2023-06-02)
+
+
+### Bug Fixes
+
+* filter create by tag ([2ce4614](https://github.com/defenseunicorns/uds-common-workflows/commit/2ce4614a2221be7e831e84794e89cd600162c05e))
+
 ## [1.0.8](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.7...v1.0.8) (2023-06-02)
 
 
