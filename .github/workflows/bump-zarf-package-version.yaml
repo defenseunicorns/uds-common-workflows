@@ -15,10 +15,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create Release Tag
+        id: tag
         uses: google-github-actions/release-please-action@v3
       # https://github.com/google-github-actions/release-please-action
         with:
           command: manifest # use configs in release-please-config.json
           release-type: simple
-          skip-github-release: true
+      - name: Publish
+        if: ${{ steps.tag.outputs.release_created }}
+        shell: bash
+        run: |
+          echo "Triggered by tag creation"
 
