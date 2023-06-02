@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.13](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.12...v1.0.13) (2023-06-02)
+
+
+### Bug Fixes
+
+* test ([35a257c](https://github.com/defenseunicorns/uds-common-workflows/commit/35a257cdc372ab9b40728d1c8b8618eea581c0a9))
+
 ## [1.0.12](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.11...v1.0.12) (2023-06-02)
 
 
