@@ -20,4 +20,5 @@ jobs:
         with:
           command: manifest # use configs in release-please-config.json
           release-type: simple
+          skip-github-release: true
 
