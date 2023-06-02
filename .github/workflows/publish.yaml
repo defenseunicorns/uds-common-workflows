@@ -2,17 +2,19 @@ name: Publish
 
 # Will remove before merge and make it only tags
 on:
-  create:
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
   packages: write
 
 jobs:
-  dummy:
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Any Name Bash Test Step
+      - name: Publish
         shell: bash
         run: |
           echo "Triggered by tag creation ${{github.ref_type == 'tag'}} ${{github.ref_type}}"

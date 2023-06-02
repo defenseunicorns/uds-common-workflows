@@ -11,13 +11,13 @@ permissions:
   pull-requests: write
 
 jobs:
-  release-please:
+  release:
     runs-on: ubuntu-latest
     steps:
-      - uses: google-github-actions/release-please-action@v3
+      - name: Create Release Tag
+        uses: google-github-actions/release-please-action@v3
       # https://github.com/google-github-actions/release-please-action
         with:
-          command: manifest
+          command: manifest # use configs in release-please-config.json
           release-type: simple
-          # extra-files: ${{ inputs.working-dir }}/zarf.yaml
    
