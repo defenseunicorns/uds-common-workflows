@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.12](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.11...v1.0.12) (2023-06-02)
+
+
+### Bug Fixes
+
+* expose variables ([1c33c5d](https://github.com/defenseunicorns/uds-common-workflows/commit/1c33c5d80b0d5727ce02116096ae138648831da7))
+
 ## [1.0.11](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.10...v1.0.11) (2023-06-02)
 
 
