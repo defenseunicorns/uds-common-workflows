@@ -18,7 +18,3 @@ jobs:
         shell: bash
         run: |
           echo "Triggered by tag creation"
-          echo "github.ref_type: ${{github.ref_type}}"
-          echo "github.ref: ${{github.ref}}"
-          echo "github.event: ${{github.event}}"
-          echo "github.ref_name: ${{github.ref_name}}"
