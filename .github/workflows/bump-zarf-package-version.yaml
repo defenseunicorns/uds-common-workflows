@@ -21,7 +21,7 @@ jobs:
         with:
           command: manifest # use configs in release-please-config.json
           release-type: simple
-      - name: Publish
+      - name: Publish Release
         if: ${{ steps.tag.outputs.release_created }}
         shell: bash
         run: |
