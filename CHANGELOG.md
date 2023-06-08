@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.18](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.17...v1.0.18) (2023-06-08)
+
+
+### Bug Fixes
+
+* format onDeploy command ([ad9a769](https://github.com/defenseunicorns/uds-common-workflows/commit/ad9a7694f1d4a6d7c61d6aa8c3f2d1656338fe1b))
+* mode version ([d9bcfdf](https://github.com/defenseunicorns/uds-common-workflows/commit/d9bcfdf13e64c10a7f8a20e1043502a5b715721b))
+* remove old version script ([4d7c1e3](https://github.com/defenseunicorns/uds-common-workflows/commit/4d7c1e3b01778723320914d42305eade8c826a5d))
+* use dummy tests for now ([a9c21d1](https://github.com/defenseunicorns/uds-common-workflows/commit/a9c21d113a7d360e7c96c88faafb98844eaa9123))
+
 ## [1.0.17](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.16...v1.0.17) (2023-06-02)
 
 
