@@ -38,8 +38,10 @@ components:
         after:
           - cmd: rm -f run/loki/terraform || true
             description: Clean up previous install since archiver doesn't overwrite the output
-          - cmd: "./extract-terraform.sh ###ZARF_PKG_TMPL_TERRAFORM_VERSION### ###ZARF_PKG_TMPL_TERRAFORM_PROVIDER_AWS_VERSION###"
-          # - cmd: rm -rf tmp
+          - cmd: >
+              "./extract-terraform.sh 
+              ###ZARF_PKG_TMPL_TERRAFORM_VERSION### 
+              ###ZARF_PKG_TMPL_TERRAFORM_PROVIDER_AWS_VERSION###"
     files:
       - source: extract.sh
         target: extract-terraform.sh
