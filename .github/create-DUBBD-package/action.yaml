@@ -9,10 +9,10 @@ inputs:
     description: Registry1 PW
     required: true
   working-dir:
-    description: Zarf package path
+    description: DUBBD zarf.yaml path
     required: true
   download-init-package: 
-    description: Include Zarf init package
+    description: Include Zarf init package?
     required: false
 
 outputs:
@@ -30,14 +30,7 @@ runs:
         username: ${{ inputs.username }}
         password: ${{ inputs.password }}
         
-    - name: Install Zarf
-      uses: defenseunicorns/setup-zarf@main
-      with:
-        # renovate: datasource=github-tags depName=defenseunicorns/zarf versioning=semver
-        version: v0.27.1
-        download-init-package: ${{ inputs.download-init-package }}
-
     - name: Create Zarf Package
-      shell: bash
-      run: zarf package create --confirm
-      working-directory: ${{ inputs.working-dir }}
+      uses: ./.github/actions/create-zarf-package
+      with:
+        working-dir: ${{ inputs.working_dir }}
