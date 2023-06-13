@@ -8,16 +8,20 @@ jobs:
     steps:
       - name: Clone repo
         uses: actions/checkout@main
+
       - name: Setup TFLint
-        uses: terraform-linters/setup-tflint@v3 name: Setup TFLint with:
+        uses: terraform-linters/setup-tflint@v3
         with:
-          tflint_version: v0.44.1
+          tflint_version: v3.0.0
+
       - name: Lint Terraform
         run: tflint --recursive
+
   tfsec-scan:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repo
         uses: actions/checkout@main
+
       - name: tfsec
         uses: aquasecurity/tfsec-action@v1.0.3
