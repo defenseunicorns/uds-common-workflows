@@ -43,7 +43,7 @@ A reuseable workflow has been set in this repository for use for Terraform. This
 
 ### Repository Permissions
 
-Before including a workflow from another respository, first set go to the reposotiry in GitHub (with admin or owner permissions). Click on **Settings** --> **Actions** --> **General**.
+Before including a workflow from another respository, first set go to the repository in GitHub (with admin or owner permissions). Click on **Settings** --> **Actions** --> **General**.
 
 In this screen, ensure the following sections have at least 1 of the mentioned settings.
 
@@ -53,11 +53,11 @@ In this screen, ensure the following sections have at least 1 of the mentioned s
 
 **Workflow permissions**
 * *Read and write permissions*
-* [x] *Allow GitHub Actions to creat and approve pull requests*
+* [x] *Allow GitHub Actions to create and approve pull requests*
 
 ### Common Release Workflow
 
-Finally, assuming the [init](#init) has been set for the repository and the [repository permissions](#repository-permissions) have both been set. Simply perform the following:
+Finally, assuming the [init](#init) has been set for the repository and the [repository permissions](#Repository-Permissions) have both been set. Simply perform the following:
 
 1. Create a worklows folder if it does not exist already `mkdir -p .github/workflows`.
 1. Copy the following contents into `.github/workflows/please-release.yml`.
@@ -86,7 +86,7 @@ jobs:
 
 
 
-## Resourcs
+## Resources
 * [Release Please GitHub](https://github.com/google-github-actions/release-please)
 * [Init Release Please Docs](https://github.com/googleapis/release-please/blob/main/docs/cli.md)
 * [Youtube: Reuseable Workflows](https://youtu.be/bCqPXUcBfJQ)
