@@ -35,3 +35,5 @@ jobs:
 
       - name: tfsec
         uses: aquasecurity/tfsec-action@v1.0.3
+          with:
+            github_token: ${{ github.token }}
