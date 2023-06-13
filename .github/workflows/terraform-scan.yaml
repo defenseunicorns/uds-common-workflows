@@ -6,7 +6,7 @@ on:
         required: false
         description: 'Tfsec to hard stop the pipeline or not when vulnerabilities are found'
         default: true
-        type: bool
+        type: string
 
 run-name: ${{ github.actor }} is scanning Terraform in ${{ github.reposity }}
 jobs:
