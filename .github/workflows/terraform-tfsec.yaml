@@ -1,0 +1,13 @@
+name: terraform-tfsec
+on:
+  workflow_call:
+
+run-name: ${{ github.actor }} is scanning Terraform in ${{ github.reposity }}
+jobs:
+  tfsec-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@main
+      - name: tfsec
+        uses: aquasecurity/tfsec-action@v1.0.3
