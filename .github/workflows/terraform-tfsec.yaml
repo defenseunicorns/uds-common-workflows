@@ -1,7 +1,6 @@
 name: terraform-tfsec
 on:
   workflow_call:
-
 run-name: ${{ github.actor }} is scanning Terraform in ${{ github.reposity }}
 jobs:
   tflint:
@@ -9,8 +8,10 @@ jobs:
     steps:
       - name: Clone repo
         uses: actions/checkout@main
-      - name: Install TFLint
-        run: curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v3 name: Setup TFLint with:
+        with:
+          tflint_version: v0.44.1
       - name: Lint Terraform
         run: tflint --recursive
   tfsec-scan:
