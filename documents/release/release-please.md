@@ -87,7 +87,7 @@ jobs:
 
 
 ## Resources
-* [Release Please GitHub](https://github.com/google-github-actions/release-please)
+* [Release Please GitHub](https://github.com/googleapis/release-please)
 * [Init Release Please Docs](https://github.com/googleapis/release-please/blob/main/docs/cli.md)
 * [Youtube: Reuseable Workflows](https://youtu.be/bCqPXUcBfJQ)
 * [GitHub Reusing Workflows](https://docs.github.com/en/actions/using-workflows/reusing-workflows)
