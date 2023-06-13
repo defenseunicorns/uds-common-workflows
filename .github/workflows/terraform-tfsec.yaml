@@ -14,8 +14,17 @@ jobs:
         with:
           tflint_version: v0.46.1
 
-      - name: Lint Terraform
-        run: tflint --recursive
+      - name: Show version
+        run: tflint --version
+
+      - name: Init TFLint
+        run: tflint --init
+        env:
+          # https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/plugins.md#avoiding-rate-limiting
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Run TFLint
+        run: tflint -f compact
 
   tfsec-scan:
     runs-on: ubuntu-latest
