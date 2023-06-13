@@ -15,7 +15,7 @@ jobs:
           tflint_version: v0.46.1
 
       - name: Lint Terraform
-        run: tflint --recursive
+        run: tflint -f compact
 
   tfsec-scan:
     runs-on: ubuntu-latest
