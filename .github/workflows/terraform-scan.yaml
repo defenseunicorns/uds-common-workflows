@@ -7,6 +7,11 @@ on:
         description: 'Tfsec to hard stop the pipeline or not when vulnerabilities are found'
         default: true
         type: string
+      tf-dirs:
+        required: false
+        description: Regula variable for terraform directories, either space or new line seperated
+        default: .
+        type: string
 
 run-name: ${{ github.actor }} is scanning Terraform in ${{ github.reposity }}
 jobs:
@@ -45,4 +50,15 @@ jobs:
         with:
           github_token: ${{ github.token }}
           soft-fail: ${{ inputs.soft-fail }}
+
+  regula:
+    needs: [tflint]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: fugue/regula-action@v3.2.1
+      with:
+        input_path: tf_dirs
+        input_type: tf
+
 
