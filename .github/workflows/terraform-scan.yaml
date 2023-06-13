@@ -1,4 +1,4 @@
-name: terraform-tfsec
+name: terraform-lint-scan
 on:
   workflow_call:
 run-name: ${{ github.actor }} is scanning Terraform in ${{ github.reposity }}
