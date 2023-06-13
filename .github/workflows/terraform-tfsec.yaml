@@ -4,6 +4,15 @@ on:
 
 run-name: ${{ github.actor }} is scanning Terraform in ${{ github.reposity }}
 jobs:
+  tflint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@main
+      - name: Install TFLint
+        run: curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+      - name: Lint Terraform
+        run: tflint --recursive
   tfsec-scan:
     runs-on: ubuntu-latest
     steps:
