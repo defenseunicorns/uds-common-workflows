@@ -1,6 +1,13 @@
 name: terraform-lint-scan
 on:
   workflow_call:
+    inputs:
+      soft-fail:
+        required: false
+        description: 'Tfsec to hard stop the pipeline or not when vulnerabilities are found'
+        default: true
+        type: bool
+
 run-name: ${{ github.actor }} is scanning Terraform in ${{ github.reposity }}
 jobs:
   tflint:
@@ -37,4 +44,5 @@ jobs:
         uses: aquasecurity/tfsec-action@v1.0.3
         with:
           github_token: ${{ github.token }}
+          soft-fail: ${{ inputs.soft-fail }}
 
