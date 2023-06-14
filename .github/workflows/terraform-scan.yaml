@@ -58,7 +58,7 @@ jobs:
     - uses: actions/checkout@master
     - uses: fugue/regula-action@v3.2.1
       with:
-        input_path: tf_dirs
+        input_path: ${{ tf-dirs }}
         input_type: tf
 
 
