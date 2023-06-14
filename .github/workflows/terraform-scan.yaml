@@ -10,7 +10,7 @@ on:
       tf-dirs:
         required: true
         description: 'Regula variable for terraform directories, either space or new line seperated'
-        default: .
+        default: '.'
         type: string
 
 run-name: ${{ github.actor }} is scanning Terraform in ${{ github.reposity }}
