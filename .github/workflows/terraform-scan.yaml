@@ -59,6 +59,9 @@ jobs:
       - name: Clone repo
         uses: actions/checkout@main
 
+      - name: List Directories
+        run: ls -lsa
+
       - name: Scan with Regula
         uses: fugue/regula-action@v3.2.1
         with:
