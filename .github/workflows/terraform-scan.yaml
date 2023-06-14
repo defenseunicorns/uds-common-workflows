@@ -56,10 +56,13 @@ jobs:
     needs: [tflint]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: fugue/regula-action@v3.2.1
-      with:
-        input_path: ${{ inputs.tf-dirs }}
-        input_type: tf
+      - name: Clone repo
+        uses: actions/checkout@main
+
+      - name: Scan with Regula
+        uses: fugue/regula-action@v3.2.1
+        with:
+          input_path: ${{ inputs.tf-dirs }}
+          input_type: tf
 
 
