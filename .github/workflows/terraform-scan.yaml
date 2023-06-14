@@ -60,7 +60,7 @@ jobs:
         uses: actions/checkout@main
 
       - name: List Directories
-        run: ls -lsa
+        run: terraform init; ls -lsa
 
       - name: Scan with Regula
         uses: fugue/regula-action@v3.2.1
