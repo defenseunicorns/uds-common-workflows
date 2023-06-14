@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       soft-fail:
-        required: true 
+        required: false 
         description: 'Tfsec to hard stop the pipeline or not when vulnerabilities are found'
         default: true
         type: boolean
