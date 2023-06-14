@@ -3,17 +3,17 @@ on:
   workflow_call:
     inputs:
       soft-fail:
-        required: false
+        required: true 
         description: 'Tfsec to hard stop the pipeline or not when vulnerabilities are found'
         default: true
-        type: string
+        type: boolean
       tf-dirs:
         required: true
         description: 'Regula variable for terraform directories, either space or new line seperated'
         default: '.'
         type: string
 
-run-name: ${{ github.actor }} is scanning Terraform in ${{ github.reposity }}
+run-name: ${{ github.actor }} is scanning Terraform in ${{ github.repository }}
 jobs:
   tflint:
     runs-on: ubuntu-latest
@@ -49,7 +49,7 @@ jobs:
         uses: aquasecurity/tfsec-action@v1.0.3
         with:
           github_token: ${{ github.token }}
-          soft-fail: ${{ inputs.soft-fail }}
+          soft_fail: ${{ inputs.soft-fail }}
 
   regula:
     needs: [tflint]
@@ -58,7 +58,7 @@ jobs:
     - uses: actions/checkout@master
     - uses: fugue/regula-action@v3.2.1
       with:
-        input_path: ${{ tf-dirs }}
+        input_path: ${{ inputs.tf-dirs }}
         input_type: tf
 
 
