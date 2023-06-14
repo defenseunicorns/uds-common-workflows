@@ -60,12 +60,13 @@ jobs:
         uses: actions/checkout@main
 
       - name: List Directories
-        run: terraform init; ls -lsa
+        run: ls -lsa
 
       - name: Scan with Regula
         uses: fugue/regula-action@v3.2.1
         with:
           input_path: ${{ inputs.tf-dirs }}
           input_type: tf
+
 
 
