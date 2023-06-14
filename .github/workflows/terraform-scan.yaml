@@ -67,6 +67,3 @@ jobs:
         with:
           input_path: ${{ inputs.tf-dirs }}
           input_type: tf
-
-
-
