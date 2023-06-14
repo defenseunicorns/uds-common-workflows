@@ -9,7 +9,7 @@ on:
         default: true
         type: boolean
       tf-dirs:
-        required: true
+        required: false
         description: 'Regula variable for terraform directories, either space or new line seperated'
         default: '.'
         type: string
