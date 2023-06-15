@@ -1,0 +1,8 @@
+name: Terraform Formatting
+Description: Apply Terraform formatting and commit changes to branch
+
+runs:
+  using: composite
+  steps:
+    - name: Run Terraform formatting
+      run: terraform fmt -recursive 
