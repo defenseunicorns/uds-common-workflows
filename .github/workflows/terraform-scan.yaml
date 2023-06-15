@@ -1,6 +1,7 @@
 name: terraform-lint-scan
 
 on:
+  push:
   workflow_call:
     inputs:
       soft-fail:
@@ -23,7 +24,7 @@ jobs:
         uses: actions/checkout@main
 
       - name: Terraform format
-        uses: ./.github/actions/terraform-fmt
+        uses: ./.github/actions/terraform-fmt@inline-fmt
 
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v3
