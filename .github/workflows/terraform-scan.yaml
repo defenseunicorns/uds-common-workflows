@@ -21,10 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repo
-        uses: actions/checkout@main
+        uses: actions/checkout@v3
 
       - name: Terraform format
-        uses: ./.github/actions/terraform-fmt@inline-fmt
+        uses: ./.github/actions/terraform-fmt
 
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v3
