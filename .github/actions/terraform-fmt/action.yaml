@@ -6,4 +6,3 @@ runs:
   steps:
     - name: Run Terraform formatting
       run: terraform fmt -recursive
-
