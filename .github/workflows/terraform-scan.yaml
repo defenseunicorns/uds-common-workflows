@@ -1,0 +1,69 @@
+name: terraform-lint-scan
+
+on:
+  workflow_call:
+    inputs:
+      soft-fail:
+        required: false 
+        description: 'Tfsec to hard stop the pipeline or not when vulnerabilities are found'
+        default: true
+        type: boolean
+      tf-dirs:
+        required: false
+        description: 'Regula variable for terraform directories, either space or new line seperated'
+        default: '.'
+        type: string
+
+run-name: ${{ github.actor }} is scanning Terraform in ${{ github.repository }}
+jobs:
+  tflint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@main
+
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v3
+        with:
+          tflint_version: v0.46.1
+
+      - name: Show version
+        run: tflint --version
+
+      - name: Init TFLint
+        run: tflint --init
+        env:
+          # https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/plugins.md#avoiding-rate-limiting
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Run TFLint
+        run: tflint -f compact --recursive
+
+  tfsec-scan:
+    needs: [tflint]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@main
+
+      - name: tfsec
+        uses: aquasecurity/tfsec-action@v1.0.3
+        with:
+          github_token: ${{ github.token }}
+          soft_fail: ${{ inputs.soft-fail }}
+
+  regula:
+    needs: [tflint]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@main
+
+      - name: List Directories
+        run: ls -lsa
+
+      - name: Scan with Regula
+        uses: fugue/regula-action@v3.2.1
+        with:
+          input_path: ${{ inputs.tf-dirs }}
+          input_type: tf
