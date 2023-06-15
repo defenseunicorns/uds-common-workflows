@@ -1,13 +1,45 @@
 name: Terraform Formatting
 Description: Apply Terraform formatting and commit changes to branch
 
+output:
+  formatted-tf:
+    description: Files Terraform fmt fixed
+    value: ${{ steps.tffmt.outputs.formatted }}
+  branch:
+    description: Current branch 
+    value: ${{ steps.getbranch.outputs.branch }}
+
 runs:
   using: composite 
   steps:
     - name: Run Terraform formatting
       shell: bash
-      run: terraform fmt -recursive
+      id: tffmt
+      run: echo "formatted=$(terraform fmt -recursive)" >> $GITHUB_OUTPUT
     
+    - name: Get branch
+      shell: bash
+      id: getbranch 
+      run: echo "branch=$(git branch|grep \* |awk '{print $2}')" >> $GITHUB_OUTPUT
+    
+      # Use the REST API to commit changes, so we get automatic commit signing
+    - name: Commit changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        for fixed in ${{ steps.tffmt.outputs.formatted }}; do
+          export BRANCH="${{ steps.getbranch.outputs.branch }}"
+          export MESSAGE="chore: Terraform fmt of $fixed from common workflows"
+          export SHA=$( git rev-parse $BRANCH:$fixed )
+          export CONTENT=$( base64 -i $fixed )
+          gh api --method PUT /repos/defenseunicorns/${{ github.repository }}/contents/$fixed \
+            --field message="$MESSAGE" \
+            --field content="$CONTENT" \
+            --field encoding="base64" \
+            --field branch="$BRANCH" \
+            --field sha="$SHA"
+        done;
+
     - name: Commit formatting changes 
       shell: bash
       run: |
