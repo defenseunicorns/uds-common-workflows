@@ -31,6 +31,23 @@ Tfsec is a well known and established Terraform security scanning tool. The pare
 
 Regula is another impressive scanner that, when configured, can apply additional rules for scanning. Regula must be told what folders to scan (defaul is the repo root folder). Please note, regula is working even though the results may lead to improper assumptions. Regula's stock enforcement will mostly look at known providers and provide scans. Regula seems to be one of the easiest tools to optimize to add or dismiss certain rules when scanning Terraform.
 
+## Installation and Use
+
+Assuming the permissions for the GitHub actions has been set properly (see release documentation). Add the following contents to the file `.github/workspaces/terraform-scan.yaml`.
+
+```yaml
+name: Scan Terraform
+on:
+  push:
+  pull_request:
+
+jobs:
+  scan-terraform:
+    uses: defenseunicorns/uds-common-workflows/.github/workflows/terraform-scan.yaml@main
+    with:
+      soft-fail: true
+```
+
 ## Workflow Diagram
 
 For the worklow to work, all jobs must bass for a successful pipeline.
