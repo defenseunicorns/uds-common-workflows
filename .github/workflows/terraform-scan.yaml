@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@main
 
       - name: Terraform format
-        uses: .github/actions/terraform-fmt
+        uses: ./.github/actions/terraform-fmt
 
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v3
