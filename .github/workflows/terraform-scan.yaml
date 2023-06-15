@@ -1,7 +1,6 @@
 name: terraform-lint-scan
 
 on:
-  push:
   workflow_call:
     inputs:
       soft-fail:
