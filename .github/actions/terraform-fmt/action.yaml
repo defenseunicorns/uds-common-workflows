@@ -8,8 +8,9 @@ runs:
       shell: bash
       run: terraform fmt -recursive
     
-    - uses: actions/checkout@v2
-    - run: |
+    - name: Commit formatting changes 
+      shell: bash
+      run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
         git commit -am "Fixed Terraform Formatting in GitHub action"
