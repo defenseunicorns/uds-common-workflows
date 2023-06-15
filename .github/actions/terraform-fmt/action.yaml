@@ -4,5 +4,8 @@ Description: Apply Terraform formatting and commit changes to branch
 runs:
   using: composite
   steps:
+    - name: Clone repo
+      uses: actions/checkout@main
+
     - name: Run Terraform formatting
       run: terraform fmt -recursive
