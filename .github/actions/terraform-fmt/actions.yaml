@@ -5,4 +5,5 @@ runs:
   using: composite
   steps:
     - name: Run Terraform formatting
-      run: terraform fmt -recursive 
+      run: terraform fmt -recursive
+
