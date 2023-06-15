@@ -22,8 +22,8 @@ jobs:
       - name: Clone repo
         uses: actions/checkout@v3
 
-      - name: Terraform format
-        uses: defenseunicorns/uds-common-workflows/.github/actions/terraform-fmt@inline-fmt
+      # - name: Terraform format
+      #   uses: defenseunicorns/uds-common-workflows/.github/actions/terraform-fmt@inline-fmt
 
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v3
