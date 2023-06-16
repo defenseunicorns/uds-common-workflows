@@ -59,7 +59,7 @@ runs:
         before_list=$(cat .readmechanges|awk '{print $2}')    
         for i in ${before_list}; do echo "before_list item $i"
         for rfile in ${before_list}; do    
-          echo 'File rfile: $rfile'
+          echo 'File rfile, $rfile';
           # after=$(sha256sum $rfile|awk '{print $1}')    
           # check=$(grep -e $after .readmechanges)    
           # if [ -z "$check" ]; then                                                                                                                                          
