@@ -34,12 +34,12 @@ runs:
     - name: Set Diff Readme recursive
       shell: bash
       run: |
-      # Stash a list of all readme's found and their sha
-      readme_list=$(find . -print|grep -v '.git'|grep -v .terraform|grep README.md)
-      for readme in $readme_list; do
-        echo "Readme found: $readme"
-        sha256sum $readme >> .readmechanges
-      done;
+        # Stash a list of all readmes found and their sha
+        readme_list=$(find . -print|grep -v '.git'|grep -v .terraform|grep README.md)
+        for readme in $readme_list; do
+          echo "Readme found: $readme"
+          sha256sum $readme >> .readmechanges
+        done;
 
     - name: Update Terraform Docs
       uses: terraform-docs/gh-actions@v1.0.0
