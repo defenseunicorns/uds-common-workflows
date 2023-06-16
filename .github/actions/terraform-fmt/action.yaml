@@ -18,7 +18,7 @@ runs:
         formatted=$(terraform fmt -recursive)
         for i in $formatted; do echo $i; done;
         for fixed in $formatted; do
-          BRANCH="${{ branch.ref_name }}"
+          BRANCH="${{ github.ref_name }}"
           MESSAGE="chore: Terraform fmt of $fixed from common workflows"
           SHA=$( git rev-parse $BRANCH:$fixed )
           CONTENT=$( base64 -i $fixed )
