@@ -10,29 +10,29 @@ runs:
   using: composite 
   steps:
       # Use the REST API to commit changes, so we get automatic commit signing
-    - name: Commit signed changes
-      shell: bash
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      run: |
-        formatted=$(terraform fmt -recursive)
-        for i in $formatted; do echo $i; done;
-        for fixed in $formatted; do
-          BRANCH="${{ github.ref_name }}"
-          MESSAGE="chore: Terraform fmt of $fixed from common workflows"
-          SHA=$( git rev-parse $BRANCH:$fixed )
-          CONTENT=$( base64 -i $fixed )
-          gh api --method PUT /repos/${{ github.repository }}/contents/$fixed \
-            --field message="$MESSAGE" \
-            --field content="$CONTENT" \
-            --field encoding="base64" \
-            --field branch="$BRANCH" \
-            --field sha="$SHA"
-          sleep 1
-        done;
+    # - name: Commit signed changes
+    #   shell: bash
+    #   env:
+    #     GITHUB_TOKEN: ${{ github.token }}
+    #   run: |
+    #     formatted=$(terraform fmt -recursive)
+    #     for i in $formatted; do echo $i; done;
+    #     for fixed in $formatted; do
+    #       BRANCH="${{ github.ref_name }}"
+    #       MESSAGE="chore: Terraform fmt of $fixed from common workflows"
+    #       SHA=$( git rev-parse $BRANCH:$fixed )
+    #       CONTENT=$( base64 -i $fixed )
+    #       gh api --method PUT /repos/${{ github.repository }}/contents/$fixed \
+    #         --field message="$MESSAGE" \
+    #         --field content="$CONTENT" \
+    #         --field encoding="base64" \
+    #         --field branch="$BRANCH" \
+    #         --field sha="$SHA"
+    #       sleep 1
+    #     done;
 
-    - name: Sync repo
-      uses: actions/checkout@v3
+    # - name: Sync repo
+    #   uses: actions/checkout@v3
 
     - name: Update Terraform Docs
       uses: terraform-docs/gh-actions@v1.0.0
