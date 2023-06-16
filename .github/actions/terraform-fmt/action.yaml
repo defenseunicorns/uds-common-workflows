@@ -45,7 +45,7 @@ runs:
           has_tf=$(ls $directory_check| grep .tf| wc -l)
           if [ $has_tf -ge 0 ]; then 
             echo "Readme found: $readme"
-            csv_found+="$readme,"
+            csv_found+="$directory_check,"
             sha256sum $readme >> .readmechanges
           fi
         done;
