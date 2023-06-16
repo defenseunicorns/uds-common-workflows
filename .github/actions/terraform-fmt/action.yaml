@@ -30,7 +30,8 @@ runs:
     - name: Commit changes
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ inputs.github-token }}
+        # GITHUB_TOKEN: ${{ inputs.github-token }}
+        GITHUB_TOKEN: ${{ github.token }}
       run: |
         formatted=$(terraform fmt -recursive)
         for fixed in $formatted; do
