@@ -62,30 +62,25 @@ runs:
           echo "File to check: $rfile"
           after=$(sha256sum $rfile|awk '{print $1}')
           match=0                                                                                                                                    
+          # git diff won't work and grep does not work, this is the alternative
           for oldhash in ${before_hash[@]}; do
             if [ "$oldhash" = "$after" ]; then
               match=1                                                                                                                                                    
             fi                                                                                                                                     
           done;
+
           if [ 0 -eq $match ]; then                                                                                                                                 
+            # Say which file is being committed and commit it. 
             echo "$rfile is new"
-            echo "isnewreadme $rfile" >> .readmechanges
+            BRANCH="${{ github.ref_name }}"
+            MESSAGE="chore: Terraform document updated $rfile from common workflows"
+            SHA=$( git rev-parse $BRANCH:$rfile )
+            CONTENT=$( base64 -i $rfile )
+            gh api --method PUT /repos/${{ github.repository }}/contents/$rfile \
+              --field message="$MESSAGE" \
+              --field content="$CONTENT" \
+              --field encoding="base64" \
+              --field branch="$BRANCH" \
+              --field sha="$SHA"
           fi
         done;
-
-        # # Only changed documents here
-        # newdocs=$(grep -e isnewreadme .readmechanges|awk '{print $2}')
-        # for i in $newdocs; do echo 'Changed $i'; done
-        # for newdoc in ${newdocs[@]}; do
-        #   BRANCH="${{ github.ref_name }}"
-        #   MESSAGE="chore: Terraform document updated $newdoc from common workflows"
-        #   SHA=$( git rev-parse $BRANCH:$newdoc )
-        #   CONTENT=$( base64 -i $newdoc )
-        #   gh api --method PUT /repos/${{ github.repository }}/contents/$newdoc \
-        #     --field message="$MESSAGE" \
-        #     --field content="$CONTENT" \
-        #     --field encoding="base64" \
-        #     --field branch="$BRANCH" \
-        #     --field sha="$SHA"
-        #   sleep 1
-        # done;
