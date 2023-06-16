@@ -67,8 +67,8 @@ runs:
         # done;  
         
         # Only changed documents here
-        newdocs=$(grep -e "isnewreadme" .readmechanges|awk '{print $2}')
-        for i in $newdocs; do echo "Changed $newdoc"; done
+        newdocs=$(grep -e isnewreadme .readmechanges|awk '{print $2}')
+        for i in $newdocs; do echo 'Changed $newdoc'; done
         # for newdoc in $newdocs; do
         #   BRANCH="${{ github.ref_name }}"
         #   MESSAGE="chore: Terraform document updated $newdoc from common workflows"
