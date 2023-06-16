@@ -54,21 +54,21 @@ runs:
     - name: Commit Readmes 
       shell: bash
       run: |
-        # # Go through the list and compare, tag and append new stuff to list
-        # before_list=$(cat .readmechanges|awk '{print $2}')    
-        # for compare in $before_list; do    
-        #   after=$(sha256sum $compare|awk '{print $1}')    
-        #   check=$(grep -e $after .readmechanges)    
-        #   if [ -z "$check" ]; then                                                                                                                                          
-        #     echo "$compare is new!"
-        #     echo "isnewreadme $compare" >> .readmechanges    
-        #   fi                                                                                                                                                                                              
-        # done;  
+        # Go through the list and compare, tag and append new stuff to list
+        before_list=$(cat .readmechanges|awk '{print $2}')    
+        for compare in $before_list; do    
+          after=$(sha256sum $compare|awk '{print $1}')    
+          check=$(grep -e $after .readmechanges)    
+          if [ -z "$check" ]; then                                                                                                                                          
+            echo "$compare is new!"
+            echo "isnewreadme $compare" >> .readmechanges    
+          fi                                                                                                                                                                                              
+        done;  
 
-        # # Only changed documents here
-        # newdocs=$(grep -e "isnewreadme" .readmechanges|awk '{print $2}')
+        # Only changed documents here
+        newdocs=$(grep -e "isnewreadme" .readmechanges|awk '{print $2}')
 
-        # for i in $newdocs; do echo "Changed $newdoc"; done
+        for i in $newdocs; do echo "Changed $newdoc"; done
         # for newdoc in $newdocs; do
         #   BRANCH="${{ github.ref_name }}"
         #   MESSAGE="chore: Terraform document updated $newdoc from common workflows"
@@ -82,5 +82,3 @@ runs:
         #     --field sha="$SHA"
         #   sleep 1
         # done;
-
-        echo "Testing indents"
