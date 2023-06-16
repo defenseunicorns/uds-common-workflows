@@ -57,8 +57,8 @@ runs:
         # Go through the list and compare, tag and append new stuff to list
         cat .readmechanges
         before_list=$(cat .readmechanges|awk '{print $2}')    
-        for i in ${before_list}; do echo "before_list item $i"
-        for rfile in ${before_list}; do    
+        for i in ${before_list[@]}; do echo "before_list item $i"
+        for rfile in ${before_list[@]}; do    
           echo $rfile
           # after=$(sha256sum $rfile|awk '{print $1}')    
           # check=$(grep -e $after .readmechanges)    
