@@ -13,6 +13,10 @@ on:
         description: 'Regula variable for terraform directories, either space or new line seperated'
         default: '.'
         type: string
+      github-token:
+        required: true
+        description: GitHub token
+        type: string
 
 run-name: ${{ github.actor }} is scanning Terraform in ${{ github.repository }}
 jobs:
@@ -24,6 +28,8 @@ jobs:
 
       - name: Terraform format
         uses: defenseunicorns/uds-common-workflows/.github/actions/terraform-fmt@inline-fmt
+        with:
+          github-token: ${{ inputs.github-token }}
 
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v3
