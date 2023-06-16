@@ -31,15 +31,12 @@ runs:
           sleep 1
         done;
 
-    - name: Sync repo
-      uses: actions/checkout@v3
-
     - name: Update Terraform Docs
       uses: terraform-docs/gh-actions@v1.0.0
       with:
         working-dir: .
-        recursive-path: .
-        recursive: true 
+        # recursive-path: .
+        # recursive: true 
         output-method: inject
         git-push: false
         fails-on-diff: true
