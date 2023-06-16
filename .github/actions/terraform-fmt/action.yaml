@@ -62,4 +62,5 @@ runs:
             --field sha="$SHA"
           sleep 1
         done;
+        cat README.md
           
