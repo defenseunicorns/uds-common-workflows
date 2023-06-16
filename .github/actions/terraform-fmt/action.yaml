@@ -57,16 +57,18 @@ runs:
         # Go through the list and compare, tag and append new stuff to list
         cat .readmechanges
         before_list=$(cat .readmechanges|awk '{print $2}')    
-        for rfile in ${before_list[@]}; do
-          echo "File to check: $rfile"
-          after=$(sha256sum $rfile| awk '{print $1}' )
-          rcheck=$(cat .readmechanges| grep $after )
-          echo "after: $after, rcheck: $rcheck"
-          # if [ -z "$rcheck" ]; then
-          #   echo "$rfile is new"
-          #   echo "isnewreadme $rfile" >> .readmechanges
-          # fi
-        done;
+        git diff --name-only
+        # for rfile in ${before_list[@]}; do
+        #   echo "File to check: $rfile"
+        #   after=$(sha256sum $rfile| awk '{print $1}' )
+        #   grep -E $after 
+        #   # rcheck=$(cat .readmechanges| grep $after )
+        #   # echo "after: $after, rcheck: $rcheck"
+        #   # if [ -z "$rcheck" ]; then
+        #   #   echo "$rfile is new"
+        #   #   echo "isnewreadme $rfile" >> .readmechanges
+        #   # fi
+        # done;
 
         # # Only changed documents here
         # newdocs=$(grep -e isnewreadme .readmechanges|awk '{print $2}')
