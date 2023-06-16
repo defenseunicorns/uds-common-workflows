@@ -27,6 +27,10 @@ runs:
       id: getbranch 
       run: echo "branch=$(git branch|grep \* |awk '{print $2}')" >> $GITHUB_OUTPUT
     
+    - name: Echo Values
+      shell: bash
+      run: echo "Branch;  ${{ steps.getbranch.outputs.branch }} with files ${{ steps.tffmt.outputs.formatted }}"
+    
       # Use the REST API to commit changes, so we get automatic commit signing
     - name: Commit changes
       shell: bash
