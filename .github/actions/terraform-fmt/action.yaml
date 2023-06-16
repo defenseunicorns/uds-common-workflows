@@ -61,7 +61,7 @@ runs:
           echo "File to check: $rfile"
           after=$(sha256sum $rfile|awk '{print $1}')
           check=$(grep -e $after .readmechanges)
-          if [-z "$check" ]; then
+          if [ -z "$check" ]; then
             echo "$file is new"
             echo "isnewreadme $rfile" >> .readmechanges
           fi
