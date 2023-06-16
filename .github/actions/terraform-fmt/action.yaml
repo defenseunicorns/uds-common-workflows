@@ -24,7 +24,7 @@ runs:
     
     - name: Echo Values
       shell: bash
-      run: echo "Branch;  ${{ steps.getbranch.outputs.branch }}""
+      run: echo "Branch;  ${{ steps.getbranch.outputs.branch }}"
 
       # Use the REST API to commit changes, so we get automatic commit signing
     - name: Commit changes
