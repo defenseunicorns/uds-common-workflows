@@ -73,12 +73,13 @@ runs:
 
           if [ 0 -eq $match ]; then                                                                                                                                 
             # Say which file is being committed and commit it. 
-            echo "$rfile is new"
+            newdoc=${rfile:2}
+            echo "$newdoc is new"
             BRANCH="${{ github.ref_name }}"
-            MESSAGE="chore: Terraform document updated $rfile from common workflows"
-            SHA=$( git rev-parse $BRANCH:$rfile )
-            CONTENT=$( base64 -i $rfile )
-            gh api --method PUT /repos/${{ github.repository }}/contents/$rfile \
+            MESSAGE="chore: Terraform document updated $newdoc from common workflows"
+            SHA=$( git rev-parse $BRANCH:$newdoc )
+            CONTENT=$( base64 -i $newdoc )
+            gh api --method PUT /repos/${{ github.repository }}/contents/$newdoc \
               --field message="$MESSAGE" \
               --field content="$CONTENT" \
               --field encoding="base64" \
