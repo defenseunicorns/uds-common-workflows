@@ -24,7 +24,7 @@ runs:
     
     - name: Echo Values
       shell: bash
-      run: echo "Branch;  ${{ steps.getbranch.outputs.branch }}"
+      run: echo "Branch; ${{ steps.getbranch.outputs.branch }}"
 
       # Use the REST API to commit changes, so we get automatic commit signing
     - name: Commit changes
@@ -34,10 +34,10 @@ runs:
       run: |
         formatted=$(terraform fmt -recursive)
         for fixed in $formatted; do
-          local BRANCH="${{ steps.getbranch.outputs.branch }}"
-          local MESSAGE="chore: Terraform fmt of $fixed from common workflows"
-          local export SHA=$( git rev-parse $BRANCH:$fixed )
-          local export CONTENT=$( base64 -i $fixed )
+          BRANCH="${{ steps.getbranch.outputs.branch }}"
+          MESSAGE="chore: Terraform fmt of $fixed from common workflows"
+          export SHA=$( git rev-parse $BRANCH:$fixed )
+          export CONTENT=$( base64 -i $fixed )
           gh api --method PUT /repos/defenseunicorns/${{ github.repository }}/contents/$fixed \
             --field message="$MESSAGE" \
             --field content="$CONTENT" \
