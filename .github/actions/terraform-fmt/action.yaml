@@ -43,6 +43,22 @@ runs:
         output-method: inject
         git-push: false 
 
-    - name: Show readme
+    - name: Commit Readmes 
       shell: bash
-      run: cat README.md 
+      run: |
+        newdocs=$(git status|grep README|awk '{print $2}')
+        for i in $newdocs; do echo "Changed: $newdoc"; done
+        for push in $newdocs; do
+          BRANCH="${{ github.ref_name }}"
+          MESSAGE="chore: Terraform document updated $newdoc from common workflows"
+          SHA=$( git rev-parse $BRANCH:$push )
+          CONTENT=$( base64 -i $push )
+          gh api --method PUT /repos/${{ github.repository }}/contents/$push \
+            --field message="$MESSAGE" \
+            --field content="$CONTENT" \
+            --field encoding="base64" \
+            --field branch="$BRANCH" \
+            --field sha="$SHA"
+          sleep 1
+        done;
+          
