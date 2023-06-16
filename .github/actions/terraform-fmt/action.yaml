@@ -1,0 +1,89 @@
+name: Terraform Formatting
+Description: Fix formatting and document changes and commit back to the branch
+
+inputs:
+  github-token:
+    description: GitHub token to authenticate to the GitHub REST API from the host repo
+    required: true
+
+runs:
+  using: composite 
+  steps:
+      # Use the REST API to commit changes, so we get automatic commit signing
+    - name: Commit signed changes
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      run: |
+        formatted=$(terraform fmt -recursive)
+        for i in $formatted; do echo $i; done;
+        for fixed in $formatted; do
+          BRANCH="${{ github.ref_name }}"
+          MESSAGE="chore: Terraform fmt of $fixed from common workflows"
+          SHA=$( git rev-parse $BRANCH:$fixed )
+          CONTENT=$( base64 -i $fixed )
+          gh api --method PUT /repos/${{ github.repository }}/contents/$fixed \
+            --field message="$MESSAGE" \
+            --field content="$CONTENT" \
+            --field encoding="base64" \
+            --field branch="$BRANCH" \
+            --field sha="$SHA"
+          sleep 1
+        done;
+
+    - name: Set Diff Readme recursive
+      shell: bash
+      run: |
+        # Stash a list of all readmes found and their sha
+        readme_list=$(find . -print|grep -v '.git'|grep -v .terraform|grep README.md)
+        for readme in $readme_list; do
+          echo "Readme found: $readme"
+          sha256sum $readme >> .readmechanges
+        done;
+
+    - name: Update Terraform Docs
+      uses: terraform-docs/gh-actions@v1.0.0
+      with:
+        working-dir: .
+        recursive-path: .
+        recursive: true 
+        output-method: inject
+        git-push: false
+        fails-on-diff: true
+
+    - name: Commit Readmes 
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      run: |
+        # Go through the list and compare, tag and append new stuff to list
+        cat .readmechanges
+        before_hash=$(cat .readmechanges|awk '{print $1}')
+        before_list=$(cat .readmechanges|awk '{print $2}')                                                                                                                                      
+        for rfile in ${before_list[@]}; do                                                                                                                                                      
+          echo "File to check: $rfile"
+          after=$(sha256sum $rfile|awk '{print $1}')
+          match=0                                                                                                                                    
+          # git diff won't work and grep does not work, this is the alternative
+          for oldhash in ${before_hash[@]}; do
+            if [ "$oldhash" = "$after" ]; then
+              match=1                                                                                                                                                    
+            fi                                                                                                                                     
+          done;
+
+          if [ 0 -eq $match ]; then                                                                                                                                 
+            # Say which file is being committed and commit it. 
+            newdoc=${rfile:2}
+            echo "$newdoc is new"
+            BRANCH="${{ github.ref_name }}"
+            MESSAGE="chore: Terraform document updated $newdoc from common workflows"
+            SHA=$( git rev-parse $BRANCH:$newdoc )
+            CONTENT=$( base64 -i $newdoc )
+            gh api --method PUT /repos/${{ github.repository }}/contents/$newdoc \
+              --field message="$MESSAGE" \
+              --field content="$CONTENT" \
+              --field encoding="base64" \
+              --field branch="$BRANCH" \
+              --field sha="$SHA"
+          fi
+        done;
