@@ -37,7 +37,7 @@ runs:
       run: |
         # Stash a list of all readmes found and their sha
         readme_list=$(find . -print|grep -v '.git'|grep -v .terraform|grep README.md)
-        csv_found = ''
+        csv_found=''
         for readme in $readme_list; do
           # Finds only the Readme with .tf in the dir.
           directory_check=${$readme:0:-9}
