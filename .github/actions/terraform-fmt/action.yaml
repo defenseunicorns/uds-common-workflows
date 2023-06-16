@@ -36,6 +36,7 @@ runs:
       shell: bash
       run: |
         # Stash a list of all readmes found and their sha
+        touch .readmechanges
         readme_list=$(find . -print|grep -v '.git'|grep -v .terraform|grep README.md)
         csv_found=''
         for readme in $readme_list; do
@@ -44,11 +45,12 @@ runs:
           has_tf=$(ls $directory_check| grep .tf| wc -l)
           if [ has_tf -ge 0 ]; then 
             echo "Readme found: $readme"
-            csv_found="$csv_found,$readme"
+            csv_found+="$readme,"
             sha256sum $readme >> .readmechanges
           fi
         done;
-        echo "csv_readme=$csv_found" >> $GITHUB_OUTPUT
+        # removes final comma
+        echo "csv_readme=${csv_found%,}" >> $GITHUB_OUTPUT
 
     - name: Update Terraform Docs
       uses: terraform-docs/gh-actions@v1.0.0
