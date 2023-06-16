@@ -57,7 +57,7 @@ runs:
         # Go through the list and compare, tag and append new stuff to list
         cat .readmechanges
         before_list=$(cat .readmechanges|awk '{print $2}')    
-        for compare in $before_list; do    
+        for compare in ${before_list[@]}; do    
           echo 'File compare: $compare'
           # after=$(sha256sum $compare|awk '{print $1}')    
           # check=$(grep -e $after .readmechanges)    
@@ -66,7 +66,6 @@ runs:
           #   echo "isnewreadme $compare" >> .readmechanges    
           # fi                                                                                                                                                                                              
         done
-        cat .readmechanges
 
         # Only changed documents here
         # newdocs=$(grep -e isnewreadme .readmechanges|awk '{print $2}')
