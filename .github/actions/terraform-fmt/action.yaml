@@ -34,6 +34,7 @@ runs:
         GITHUB_TOKEN: ${{ github.token }}
       run: |
         formatted=$(terraform fmt -recursive)
+        for i in $formatted; do echo $i; done;
         for fixed in $formatted; do
           BRANCH="${{ steps.getbranch.outputs.branch }}"
           MESSAGE="chore: Terraform fmt of $fixed from common workflows"
