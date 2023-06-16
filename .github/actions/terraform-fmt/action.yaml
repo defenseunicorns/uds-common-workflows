@@ -58,12 +58,13 @@ runs:
         cat .readmechanges
         before_list=$(cat .readmechanges|awk '{print $2}')    
         for compare in $before_list; do    
-          after=$(sha256sum $compare|awk '{print $1}')    
-          check=$(grep -e $after .readmechanges)    
-          if [ -z "$check" ]; then                                                                                                                                          
-            echo "$compare is new!"
-            echo "isnewreadme $compare" >> .readmechanges    
-          fi                                                                                                                                                                                              
+          echo 'File compare: $compare'
+          # after=$(sha256sum $compare|awk '{print $1}')    
+          # check=$(grep -e $after .readmechanges)    
+          # if [ -z "$check" ]; then                                                                                                                                          
+          #   echo "$compare is new!"
+          #   echo "isnewreadme $compare" >> .readmechanges    
+          # fi                                                                                                                                                                                              
         done
         cat .readmechanges
 
