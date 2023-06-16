@@ -58,9 +58,9 @@ runs:
         cat .readmechanges
         before_list=$(cat .readmechanges|awk '{print $2}')    
         for rfile in ${before_list[@]}; do
-          echo "File to rcheck: $rfile"
+          echo "File to check: $rfile"
           after=$(sha256sum $rfile| awk '{print $1}' )
-          rcheck=$(grep -e $after .readmechanges )
+          rcheck=$(grep -e "$after" .readmechanges )
           echo "after: $after, rcheck: $rcheck"
           # if [ -z "$rcheck" ]; then
           #   echo "$file is new"
