@@ -24,7 +24,8 @@ runs:
     
     - name: Echo Values
       shell: bash
-      run: echo "Branch; ${{ steps.getbranch.outputs.branch }}"
+      run: echo "Branch; ${{ github.ref_name }}"
+      # run: echo "Branch; ${{ steps.getbranch.outputs.branch }}"
 
       # Use the REST API to commit changes, so we get automatic commit signing
     - name: Commit changes
@@ -38,9 +39,9 @@ runs:
         for fixed in $formatted; do
           BRANCH="${{ steps.getbranch.outputs.branch }}"
           MESSAGE="chore: Terraform fmt of $fixed from common workflows"
-          export SHA=$( git rev-parse $BRANCH:$fixed )
-          export CONTENT=$( base64 -i $fixed )
-          gh api --method PUT /repos/defenseunicorns/${{ github.repository }}/contents/$fixed \
+          SHA=$( git rev-parse $BRANCH:$fixed )
+          CONTENT=$( base64 -i $fixed )
+          gh api --method PUT /repos/${{ github.repository }}/contents/$fixed \
             --field message="$MESSAGE" \
             --field content="$CONTENT" \
             --field encoding="base64" \
