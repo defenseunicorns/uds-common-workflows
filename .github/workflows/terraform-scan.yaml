@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Terraform format
-        uses: defenseunicorns/uds-common-workflows/.github/actions/terraform-fmt@gh-sleep-commits
+        uses: defenseunicorns/uds-common-workflows/.github/actions/terraform-fmt@fix/gh-sleep-commits
         with:
           github-token: ${{ inputs.github-token }}
 
