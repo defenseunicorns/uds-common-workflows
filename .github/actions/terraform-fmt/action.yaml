@@ -15,6 +15,7 @@ runs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
       run: |
+        git status --porcelain=v1 
         formatted=$(terraform fmt -recursive)
         for i in $formatted; do echo $i; done;
         for fixed in $formatted; do
