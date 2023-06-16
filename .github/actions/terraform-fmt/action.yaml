@@ -55,6 +55,7 @@ runs:
       shell: bash
       run: |
         # Go through the list and compare, tag and append new stuff to list
+        test -f .readmechanges && echo "File exists"
         before_list=$(cat .readmechanges|awk '{print $2}')    
         for compare in $before_list; do    
           after=$(sha256sum $compare|awk '{print $1}')    
