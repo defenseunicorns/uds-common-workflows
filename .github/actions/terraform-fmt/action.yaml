@@ -85,5 +85,6 @@ runs:
               --field encoding="base64" \
               --field branch="$BRANCH" \
               --field sha="$SHA"
+            sleep 1
           fi
         done;
