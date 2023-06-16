@@ -43,6 +43,6 @@ runs:
         output-method: inject
         git-push: false 
 
-    - name: Git diff
+    - name: Show readme
       shell: bash
-      run: git diff
+      run: cat README.md 
