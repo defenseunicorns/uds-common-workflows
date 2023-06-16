@@ -31,12 +31,22 @@ runs:
           sleep 1
         done;
 
+    - name: Set Diff Readme recursive
+      shell: bash
+      run: |
+      # Stash a list of all readme's found and their sha
+      readme_list=$(find . -print|grep -v '.git'|grep -v .terraform|grep README.md)
+      for readme in $readme_list; do
+        echo "Readme found: $readme"
+        sha256sum $readme >> .readmechanges
+      done;
+
     - name: Update Terraform Docs
       uses: terraform-docs/gh-actions@v1.0.0
       with:
         working-dir: .
-        # recursive-path: .
-        # recursive: true 
+        recursive-path: .
+        recursive: true 
         output-method: inject
         git-push: false
         fails-on-diff: true
@@ -44,7 +54,20 @@ runs:
     - name: Commit Readmes 
       shell: bash
       run: |
-        newdocs=$(git diff --name-only)
+        # Go through the list and compare, tag and append new stuff to list
+        before_list=$(cat .readmechanges|awk '{print $2}')    
+        for compare in $before_list; do    
+          after=$(sha256sum $compare|awk '{print $1}')    
+          check=$(grep -e $after .readmechanges)    
+          if [ -z "$check" ]; then                                                                                                                                          
+            echo "$compare is new!"
+            echo "isnewreadme $compare" >> .readmechanges    
+          fi                                                                                                                                                                                              
+        done;  
+
+        # Only changed documents here
+        newdocs=$(grep -e "isnewreadme" .readmechanges|awk '{print $2}')
+
         for i in $newdocs; do echo "Changed: $newdoc"; done
         for push in $newdocs; do
           BRANCH="${{ github.ref_name }}"
@@ -59,5 +82,4 @@ runs:
             --field sha="$SHA"
           sleep 1
         done;
-        cat README.md
           
