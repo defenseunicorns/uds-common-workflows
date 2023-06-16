@@ -1,17 +1,17 @@
-name: Get Latest DUBBD Package Version
-description: Fetches the latest version of the specified DUBBD package
+name: Get Latest GHCR Package Version
+description: Fetches the latest version of the specified package from the container registry
 
 inputs:
   github-token:
     description: GitHub token to authenticate to the GitHub REST API
     required: true
   package-name:
-    description: Name of the DUBBD package
+    description: Name of the package
     required: true
 
 outputs:
   latest-package-version:
-    description: The latest DUBBD package version
+    description: The latest package version
     value: ${{ steps.latest-package-version.outputs.latest-package-version }}
 
 runs:
@@ -39,7 +39,7 @@ runs:
         if [[ "$response" =~ "Package not found" ]]
         then
             echo -e "Package not found. Please ensure you provided a valid package name\n"
-            echo "You can find available packages here: https://github.com/orgs/defenseunicorns/packages?repo_name=uds-package-dubbd"
+            echo "You can find available packages here: https://github.com/orgs/defenseunicorns/packages"
             exit 1
         fi
 

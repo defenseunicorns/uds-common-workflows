@@ -7,7 +7,7 @@
         "extra-files": [
             {
               "type": "yaml",
-              "path": "test1/zarf.yaml",
+              "path": "examples/dos-games/zarf.yaml",
               "jsonpath": "$.metadata.version"
             }
           ]
