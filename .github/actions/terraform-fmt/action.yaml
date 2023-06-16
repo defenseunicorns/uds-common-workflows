@@ -60,7 +60,7 @@ runs:
         for rfile in ${before_list[@]}; do
           echo "File to check: $rfile"
           after=$(sha256sum $rfile| awk '{print $1}' )
-          rcheck=$(grep -E $after .readmechanges )
+          rcheck=$(cat .readmechanges| grep $after )
           echo "after: $after, rcheck: $rcheck"
           # if [ -z "$rcheck" ]; then
           #   echo "$rfile is new"
