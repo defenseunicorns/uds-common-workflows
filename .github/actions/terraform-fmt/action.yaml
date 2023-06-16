@@ -53,6 +53,8 @@ runs:
 
     - name: Commit Readmes 
       shell: bash
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
       run: |
         # Go through the list and compare, tag and append new stuff to list
         cat .readmechanges
