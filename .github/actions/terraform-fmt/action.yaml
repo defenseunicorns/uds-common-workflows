@@ -41,7 +41,8 @@ runs:
         recursive-path: .
         recursive: true 
         output-method: inject
-        git-push: false 
+        git-push: false
+        fails-on-diff: true
 
     - name: Commit Readmes 
       shell: bash
