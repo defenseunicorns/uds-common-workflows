@@ -1,5 +1,5 @@
 name: Terraform Formatting
-Description: Apply Terraform formatting and commit changes to branch
+Description: Fix formatting and document changes and commit back to the branch
 
 inputs:
   github-token:
@@ -10,7 +10,7 @@ runs:
   using: composite 
   steps:
       # Use the REST API to commit changes, so we get automatic commit signing
-    - name: Commit changes
+    - name: Commit signed changes
       shell: bash
       env:
         GITHUB_TOKEN: ${{ github.token }}
@@ -31,4 +31,10 @@ runs:
           sleep 1
         done;
 
-      
+    - name: Update Terraform Docs
+      uses: terraform-docs/gh-actions@v1.0.0
+      with:
+        recursive: true
+        git-commit-message: "chore: Auto updating Terraform Docs"
+        git-push: true
+        git-push-sign-off: true
