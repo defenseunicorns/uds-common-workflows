@@ -57,14 +57,14 @@ runs:
         # Go through the list and compare, tag and append new stuff to list
         cat .readmechanges
         before_list=$(cat .readmechanges|awk '{print $2}')    
-        for i in ${before_list}; do echo "before_list item $i"; done;
-        for compare in ${before_list[@]}; do    
-          echo 'File compare: $compare'
-          # after=$(sha256sum $compare|awk '{print $1}')    
+        for i in ${before_list}; do echo "before_list item $i"
+        for rfile in ${before_list}; do    
+          echo 'File rfile: $rfile'
+          # after=$(sha256sum $rfile|awk '{print $1}')    
           # check=$(grep -e $after .readmechanges)    
           # if [ -z "$check" ]; then                                                                                                                                          
-          #   echo "$compare is new!"
-          #   echo "isnewreadme $compare" >> .readmechanges    
+          #   echo "$rfile is new!"
+          #   echo "isnewreadme $rfile" >> .readmechanges    
           # fi                                                                                                                                                                                              
         done
 
