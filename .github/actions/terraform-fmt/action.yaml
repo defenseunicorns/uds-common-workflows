@@ -40,7 +40,7 @@ runs:
         csv_found=''
         for readme in $readme_list; do
           # Finds only the Readme with .tf in the dir.
-          directory_check=${$readme:0:-9}
+          directory_check=${readme:0:-9}
           has_tf=$(ls $directory_check| grep .tf| wc -l)
           if [ has_tf -ge 0 ]; then 
             echo "Readme found: $readme"
