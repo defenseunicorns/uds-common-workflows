@@ -35,6 +35,8 @@ runs:
       uses: terraform-docs/gh-actions@v1.0.0
       with:
         recursive: true
-        git-commit-message: "chore: Auto updating Terraform Docs"
-        git-push: true
-        git-push-sign-off: true
+        git-push: false
+    
+    - name: Check diff
+      shell: bash
+      run: git diff
