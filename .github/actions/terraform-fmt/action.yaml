@@ -38,6 +38,11 @@ runs:
       uses: terraform-docs/gh-actions@v1.0.0
       with:
         working-dir: .
-        recursive: false 
+        recursive-path: .
+        recursive: true 
         output-method: inject
         git-push: false 
+
+    - name: Git diff
+      shell: bash
+      run: git diff
