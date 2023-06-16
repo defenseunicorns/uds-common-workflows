@@ -60,10 +60,10 @@ runs:
         for rfile in ${before_list[@]}; do
           echo "File to check: $rfile"
           after=$(sha256sum $rfile| awk '{print $1}' )
-          rcheck=$(grep -e "$after" .readmechanges )
+          rcheck=$(grep -E "$after" .readmechanges )
           echo "after: $after, rcheck: $rcheck"
           # if [ -z "$rcheck" ]; then
-          #   echo "$file is new"
+          #   echo "$rfile is new"
           #   echo "isnewreadme $rfile" >> .readmechanges
           # fi
         done;
