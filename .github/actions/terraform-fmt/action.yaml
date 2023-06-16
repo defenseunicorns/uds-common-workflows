@@ -31,12 +31,15 @@ runs:
           sleep 1
         done;
 
+    - name: Sync repo
+      uses: actions/checkout@v3
+
     - name: Update Terraform Docs
       uses: terraform-docs/gh-actions@v1.0.0
       with:
+        working-dir: .
         recursive: true
-        git-push: false
-    
-    - name: Check diff
-      shell: bash
-      run: git diff
+        output-method: inject
+        git-commit-message: Updating docs from Terraform GitHub Actions common workflows
+        git-push: true
+        git-push-sign-off: true
