@@ -6,38 +6,19 @@ inputs:
     description: GitHub token to authenticate to the GitHub REST API from the host repo
     required: true
 
-# output:
-#   formatted-tf:
-#     description: Files Terraform fmt fixed
-#     value: ${{ steps.tffmt.outputs.formatted }}
-#   branch:
-#     description: Current branch 
-#     value: ${{ steps.getbranch.outputs.branch }}
-
 runs:
   using: composite 
   steps:
-    - name: Get branch
-      shell: bash
-      id: getbranch 
-      run: echo "branch=$(git branch|grep \* |awk '{print $2}')" >> $GITHUB_OUTPUT
-    
-    - name: Echo Values
-      shell: bash
-      run: echo "Branch; ${{ github.ref_name }}"
-      # run: echo "Branch; ${{ steps.getbranch.outputs.branch }}"
-
       # Use the REST API to commit changes, so we get automatic commit signing
     - name: Commit changes
       shell: bash
       env:
-        # GITHUB_TOKEN: ${{ inputs.github-token }}
         GITHUB_TOKEN: ${{ github.token }}
       run: |
         formatted=$(terraform fmt -recursive)
         for i in $formatted; do echo $i; done;
         for fixed in $formatted; do
-          BRANCH="${{ steps.getbranch.outputs.branch }}"
+          BRANCH="${{ branch.ref_name }}"
           MESSAGE="chore: Terraform fmt of $fixed from common workflows"
           SHA=$( git rev-parse $BRANCH:$fixed )
           CONTENT=$( base64 -i $fixed )
@@ -49,3 +30,5 @@ runs:
             --field sha="$SHA"
           sleep 1
         done;
+
+      
