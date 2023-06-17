@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.19](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.18...v1.0.19) (2023-06-17)
+
+
+### Bug Fixes
+
+* sleep to ensure rate limit does not stop commits ([a60b4af](https://github.com/defenseunicorns/uds-common-workflows/commit/a60b4af259f192f48904d74f278e3b6865398441))
+
 ## [1.0.18](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.17...v1.0.18) (2023-06-16)
 
 
