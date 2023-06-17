@@ -70,9 +70,9 @@ runs:
 
         commitMessage="chore: terraform README update and fmt"
 
-        # jq apparently ignores input files with newlines in their name?
-
         # for now, we ignore $removed files, but they could be handled similarly (it's just harder to send two lists of positional input files into jq)
+        
+        # jq's iteration over inputs will skip over files with 0 lines (empty files)
 
         jq \
           --null-input \
