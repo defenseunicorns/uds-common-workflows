@@ -28,13 +28,13 @@ runs:
         # removes final comma
         echo "csv_readme=${csv_found%,}" >> $GITHUB_OUTPUT
 
-    - name: Update Terraform Docs
-      uses: terraform-docs/gh-actions@v1.0.0
-      with:
-        working-dir: ${{ steps.find_readme.outputs.csv_readme }}
-        output-method: inject
-        git-push: false
-        fails-on-diff: true
+    # - name: Update Terraform Docs
+    #   uses: terraform-docs/gh-actions@v1.0.0
+    #   with:
+    #     working-dir: ${{ steps.find_readme.outputs.csv_readme }}
+    #     output-method: inject
+    #     git-push: false
+    #     fails-on-diff: true
 
     - name: terraform fmt
       shell: bash
