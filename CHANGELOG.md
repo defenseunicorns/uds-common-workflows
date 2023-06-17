@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.21](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.20...v1.0.21) (2023-06-17)
+
+
+### Bug Fixes
+
+* update actions/checkout to v3 and trigger release ([12b45f7](https://github.com/defenseunicorns/uds-common-workflows/commit/12b45f7d84dccc2986c8f93c22b053d4a535bdfe))
+
 ## [1.0.20](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.19...v1.0.20) (2023-06-17)
 
 
