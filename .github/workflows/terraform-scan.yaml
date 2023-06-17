@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repo
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v3
 
       - name: Terraform format
         uses: defenseunicorns/uds-common-workflows/.github/actions/terraform-fmt@main
@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repo
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v3
 
       - name: tfsec
         uses: aquasecurity/tfsec-action@v1.0.3
@@ -66,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repo
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v3
 
       - name: List Directories
         run: ls -lsa
