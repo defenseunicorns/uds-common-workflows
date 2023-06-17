@@ -1,5 +1,5 @@
 name: Terraform Formatting
-Description: Fix formatting and document changes and commit back to the branch
+description: Fix formatting and document changes and commit back to the branch
 
 inputs:
   github-token:
@@ -9,44 +9,20 @@ inputs:
 runs:
   using: composite 
   steps:
-      # Use the REST API to commit changes, so we get automatic commit signing
-    - name: Commit signed changes
-      shell: bash
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      run: |
-        formatted=$(terraform fmt -recursive)
-        for i in $formatted; do echo $i; done;
-        for fixed in $formatted; do
-          BRANCH="${{ github.ref_name }}"
-          MESSAGE="chore: Terraform fmt of $fixed from common workflows"
-          SHA=$( git rev-parse $BRANCH:$fixed )
-          CONTENT=$( base64 -i $fixed )
-          gh api --method PUT /repos/${{ github.repository }}/contents/$fixed \
-            --field message="$MESSAGE" \
-            --field content="$CONTENT" \
-            --field encoding="base64" \
-            --field branch="$BRANCH" \
-            --field sha="$SHA"
-          sleep 1
-        done;
-
     - name: Set Diff Readme recursive
       id: find_readme
       shell: bash
       run: |
         # Stash a list of all readmes found and their sha
-        touch .readmechanges
         readme_list=$(find . -print|grep -v '.git'|grep -v .terraform|grep -v .config|grep README.md)
         csv_found=''
         for readme in $readme_list; do
           # Finds only the Readme with .tf in the dir.
           directory_check=${readme:0:-9}
-          has_tf=$(ls $directory_check| grep .tf| wc -l)
+          has_tf=$(ls $directory_check | grep .tf | wc -l)
           if [ $has_tf -ge 0 ]; then 
             echo "Readme found: $readme"
             csv_found+="$directory_check,"
-            sha256sum $readme >> .readmechanges
           fi
         done;
         # removes final comma
@@ -60,40 +36,71 @@ runs:
         git-push: false
         fails-on-diff: true
 
-    - name: Commit Readmes 
+    - name: terraform fmt
+      shell: bash
+      run: |
+        terraform fmt -recursive
+
+      # Use the GraphQL API to commit changes, so we get automatic commit signing
+      # The REST contents API can't be used as easily because it only supports making single file commits
+    - name: Commit updated files 
       shell: bash
       env:
         GITHUB_TOKEN: ${{ github.token }}
       run: |
-        # Go through the list and compare, tag and append new stuff to list
-        cat .readmechanges
-        before_hash=$(cat .readmechanges|awk '{print $1}')
-        before_list=$(cat .readmechanges|awk '{print $2}')                                                                                                                                      
-        for rfile in ${before_list[@]}; do                                                                                                                                                      
-          echo "File to check: $rfile"
-          after=$(sha256sum $rfile|awk '{print $1}')
-          match=0                                                                                                                                    
-          # git diff won't work and grep does not work, this is the alternative
-          for oldhash in ${before_hash[@]}; do
-            if [ "$oldhash" = "$after" ]; then
-              match=1                                                                                                                                                    
-            fi                                                                                                                                     
-          done;
+        set -euo pipefail
 
-          if [ 0 -eq $match ]; then                                                                                                                                 
-            # Say which file is being committed and commit it. 
-            newdoc=${rfile:2}
-            echo "$newdoc is new"
-            BRANCH="${{ github.ref_name }}"
-            MESSAGE="chore: Terraform document updated $newdoc from common workflows"
-            SHA=$( git rev-parse $BRANCH:$newdoc )
-            CONTENT=$( base64 -i $newdoc )
-            gh api --method PUT /repos/${{ github.repository }}/contents/$newdoc \
-              --field message="$MESSAGE" \
-              --field content="$CONTENT" \
-              --field encoding="base64" \
-              --field branch="$BRANCH" \
-              --field sha="$SHA"
-            sleep 1
-          fi
-        done;
+        additions=()
+        removed=()
+        while IFS= read -r -d $'\0' status_line; do
+            filename="${status_line:3}"
+            git_status="${status_line:0:2}"
+
+            if [ "$git_status" = "D " ]; then
+                removed+=("$filename")
+            else
+                additions+=("$filename")
+            fi
+        done < <(git status --porcelain=v1 -z)
+
+        if [ "${#additions[@]}" -eq 0 ] ; then
+          echo "No files updated, skipping commit"
+          exit 0
+        fi
+
+        commitMessage="chore: terraform README update and fmt"
+
+        # jq apparently ignores input files with newlines in their name?
+
+        # for now, we ignore $removed files, but they could be handled similarly (it's just harder to send two lists of positional input files into jq)
+
+        jq \
+          --null-input \
+          --raw-input \
+          --arg repositoryNameWithOwner "$GITHUB_REPOSITORY" \
+          --arg branchName "$GITHUB_REF_NAME" \
+          --arg expectedHeadOid "$GITHUB_SHA" \
+          --arg commitMessage "$commitMessage" \
+          '
+        {
+          "query": "mutation ($input: CreateCommitOnBranchInput!) { createCommitOnBranch(input: $input) { commit { url } } }",
+          "variables": {
+            "input": {
+              "branch": {
+                "repositoryNameWithOwner": $repositoryNameWithOwner,
+                "branchName": $branchName
+              },
+              "message": {
+                "headline": $commitMessage
+              },
+              "fileChanges": {
+                "additions": [inputs | {path: input_filename, contents: . | @base64}]
+              },
+              "expectedHeadOid": $expectedHeadOid
+            }
+          }
+        }' "${additions[@]}" | curl https://api.github.com/graphql \
+          --silent \
+          --fail-with-body \
+          --oauth2-bearer "$(gh auth token)" \
+          --data @-
