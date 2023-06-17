@@ -39,8 +39,6 @@ runs:
       run: |
         # Stash a list of all readmes found and their sha
         touch .readmechanges
-        # tfdirs=$(find . -type f -name "*.tf" | grep -v .cache | grep -v ".terraform" | rev | cut -d '/' -f 2- | rev | sort -u) 
-        # for i in ${tfdirs[@]}; do touch $i/README.md; done
         readme_list=$(find . -print|grep -v '.git'|grep -v .terraform|grep -v .config|grep README.md)
         csv_found=''
         for readme in $readme_list; do
