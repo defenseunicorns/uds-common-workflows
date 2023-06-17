@@ -10,7 +10,7 @@ on:
         type: boolean
       tf-dirs:
         required: false
-        description: 'Regula variable for terraform directories, either space or new line seperated'
+        description: 'Regula variable for terraform directories, either space or new line separated'
         default: '.'
         type: string
       github-token:
