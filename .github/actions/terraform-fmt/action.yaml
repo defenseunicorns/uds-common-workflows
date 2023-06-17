@@ -94,7 +94,7 @@ runs:
                 "headline": $commitMessage
               },
               "fileChanges": {
-                "additions": (reduce inputs as $line ({}; .[input_filename] += [$line]) | map_values(join("\n")) | to_entries[] | {path: .key, contents: .value | @base64})
+                "additions": [reduce inputs as $line ({}; .[input_filename] += [$line]) | map_values(join("\n")) | to_entries[] | {path: .key, contents: .value | @base64}]
               },
               "expectedHeadOid": $expectedHeadOid
             }
