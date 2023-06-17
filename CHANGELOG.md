@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.20](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.19...v1.0.20) (2023-06-17)
+
+
+### Bug Fixes
+
+* Update terraform fmt GH Action to use GitHub GraphQL API ([#40](https://github.com/defenseunicorns/uds-common-workflows/issues/40)) ([c4d6d9b](https://github.com/defenseunicorns/uds-common-workflows/commit/c4d6d9b5d188dbc01a3412ed02044135e8876d2b))
+
 ## [1.0.19](https://github.com/defenseunicorns/uds-common-workflows/compare/v1.0.18...v1.0.19) (2023-06-17)
 
 
