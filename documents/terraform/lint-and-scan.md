@@ -17,6 +17,16 @@ This article will explain how the `.github/workflows/terraform-scan.yaml` operat
     * default: .
     * type:string
 
+### Formatting and Validate
+
+Before Tflint or any scans are run, 2 steps have been added to the format step. Upon a `push` from the repository, an action will run to peform the following steps in order. 
+
+1. `terraform fmt -recursive` will fix spacing and formatting.
+1. `terraform validate` will validate Terraform in the repository.
+1. Commit and push, all modified files will be commited and pushed to the same branch that triggered the action. 
+
+*Note:* Please remember to do pefrom a `git pull origin` after this pipeline runs as formatting may have occcured after the `git push origin`.
+
 ### [Tflint](https://github.com/terraform-linters/setup-tflint)
 
 This is a Terraform linter that will do a very general look at any files with the `.tf` suffix. The action will report any linting that seems out place with regards to `type` not set properly for a variable for example. This linter will not correct anything for you and will not worry about the format of the Terraform.
