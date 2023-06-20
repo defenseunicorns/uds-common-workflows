@@ -14,6 +14,12 @@ For this GitHub Workflow to be utilized properly, a common structure and pattern
   * default: 3
   * type: number
 
+## Credentials
+
+The team has decided that credentials must be defined at the repository level and not in the shared workflow. This will allow the development team to test in the environment that they need specifically without the common workflow mandating which repository and secrets must be used.
+
+To use, make sure when the shared workflow is used that the shared workflow is called with the `secrets: inherit` flag (show in the [example test](#example_tst) section). GitHub has documented [Simplifying using secrets with resuable workflows](https://github.blog/changelog/2022-05-03-github-actions-simplify-using-secrets-with-reusable-workflows/) on how and why. 
+
 ## Repository Structure
 
 The layout required for testing uniformly are specified as followed:
