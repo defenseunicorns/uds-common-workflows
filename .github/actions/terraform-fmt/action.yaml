@@ -41,6 +41,11 @@ runs:
       run: |
         terraform fmt -recursive
 
+    - name: terraform validate
+      shell: bash
+      run: |
+        terraform validate
+
       # Use the GraphQL API to commit changes, so we get automatic commit signing
       # The REST contents API can't be used as easily because it only supports making single file commits
     - name: Commit updated files 
