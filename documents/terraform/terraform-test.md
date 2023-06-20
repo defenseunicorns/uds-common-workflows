@@ -42,6 +42,18 @@ To set the AWS credentials, one must have:
 
 Additional [AWS Tips blogpost](https://awstip.com/using-github-actions-oidc-to-run-terraform-in-aws-31ba395518cb) explaining the steps above in depth and AWS initialization steps.
 
+## Workflow Permissions
+
+Through experimentation, the following permissions block is required to use the repository secret and the `configure-aws-credentials` action. 
+
+```yaml
+permissions:
+  id-token: write
+  contents: read
+```
+
+If the secret has been properly set, repository added to the trust relationship of the role in the account, and still fails, the permissions of the workflow is often overlooked (see [example](#example_test).
+
 ## Repository Structure
 
 The layout required for testing uniformly are specified as followed:
@@ -63,6 +75,10 @@ Please research what is best for the specific repository, but an easy target for
 name: Terraform Test
 on:
   pull_request:
+
+permissions:
+  id-token: write
+  contents: read
 
 defaults:
   run:
