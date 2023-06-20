@@ -46,7 +46,7 @@ jobs:
           role-session-name: ${{ github.event.client_payload.pull_request.head.sha || github.sha }}
           aws-region: us-east-1
           # 21600 seconds == 6 hours
-		  # 1800 seconds == 30 minutes
+          # 1800 seconds == 30 minutes
           role-duration-seconds: 1800
 
       - name: Shared Terraform Tests
@@ -66,9 +66,9 @@ flowchart TB
   end
 
   subgraph "Terraform Test Shared Workflow"
-	trigger --> clone[GitHub Clone Action]
-	clone --> tidy(Install Go dependencies)
-	tidy --> test(Go Test)
-	test --> endflow[End]
+    trigger --> clone[GitHub Clone Action]
+    clone --> tidy(Install Go dependencies)
+    tidy --> test(Go Test)
+    test --> endflow[End]
   end
 ```
