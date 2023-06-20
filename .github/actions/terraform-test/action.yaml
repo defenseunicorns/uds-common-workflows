@@ -16,11 +16,14 @@ runs:
   using: composite
   steps:
     - name: Clone repo
+      shell: bash
       uses: actions/checkout@v3
 
     - name: Install Go Dependencies
+      shell: bash
       run: go mod tidy
 
     - name: Test with terratest
+      bash: shell
       run: go test -count ${{ inputs.test_retry }} -v ./...
 
