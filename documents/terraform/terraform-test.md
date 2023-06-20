@@ -22,6 +22,26 @@ The team has decided that credentials must be defined at the repository level an
 
 It has been found that `secrets: inherit` is not needed when using a shared action instead of a shared workflow. The reason for using an action is due to the host repository needing to supply the credentials. Workflows cannot call a workflow after calling an action, but a workflow may call multiple actions.
 
+### AWS Credentials
+
+To set the AWS credentials, one must have:
+* Access to the CI account.
+* Find or know the role associated with the GitHub Actions access.
+* Write permissions to the role's trust relationship. 
+
+**Steps to Connect to AWS:**
+1. Connect to the AWS account used for CI or whatever account that will used.
+1. Find the role associated with any GitHub CI/CD work.
+1. Copy the role arn and set as a repository secret in the GitHub Repository.
+  1. Click on the repository __Settings__ --> __Secrets and Variables__ --> __Actions__ --> __New repository secret__ button.
+  1. Name like in the example or something this obvious. 
+  1. Copy contents in window.
+1. Go back to the AWS role in the web console, clike on the __Trust relationships__ tab.
+1. Find the block of related repositories, add the new repository to the list without breaking the JSON format.
+1. Test the workflow in GitHub, the AWS Credentials action will fail if there is a misconfiguration.
+
+Additional [AWS Tips blogpost](https://awstip.com/using-github-actions-oidc-to-run-terraform-in-aws-31ba395518cb) explaining the steps above in depth and AWS initialization steps.
+
 ## Repository Structure
 
 The layout required for testing uniformly are specified as followed:
