@@ -53,11 +53,24 @@ jobs:
 For the worklow to work, all jobs must bass for a successful pipeline.
 
 ```mermaid
-flowchart LR
-
-  subgraph "Terraform Scan Workflow"
-    Start --> tflint(Tflint)
-    tflint --> tfsec(Tfsec)
-    tflint --> regula(Regula)
+flowchart TB
+  subgraph "Local Terraform Workflow"
+    push[GitHub Push Event]
   end
+
+  subgraph "Terraform-fmt Action"
+    fmt(Terraform Format) --> validate(Terraform Validate)
+    validate --> inlinecommit(Commit and push to branch)
+  end
+
+  subgraph "Terraform Scan Shared Workflow"
+    push --> clone[GitHub Clone Repo]
+    clone --> fmt
+    inlinecommit --> tflint
+    tflint(Tflint) --> tfsec(Tfsec)
+    tflint --> regula(Regula)
+    regula --> End
+    tfsec --> End
+  end
+
 ```
