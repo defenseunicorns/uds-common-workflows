@@ -114,9 +114,9 @@ For the workflow to complete, all steps must complete successfully.
 flowchart LR
   subgraph "Local Terraform Worklow"
     trigger[GitHub Pull Request Event] --> aws[AWS Credentials Action]
+    aws --> clone[GitHub Clone Action]
 
     subgraph "Terraform Test Shared Action"
-      aws --> clone[GitHub Clone Action]
       clone --> tidy(Install Go dependencies)
       tidy --> test(Go Test)
     end
