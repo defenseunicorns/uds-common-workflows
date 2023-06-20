@@ -38,9 +38,21 @@ on:
 
 jobs:
   terraform-test:
-    uses: defenseunicorns/uds-common-workflows/.github/workflows/terraform-test.yml@25-common-iac-test
-    with:
-      test_retry: 1
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_COMMERCIAL_ROLE_TO_ASSUME }}
+          role-session-name: ${{ github.event.client_payload.pull_request.head.sha || github.sha }}
+          aws-region: us-east-1
+          # 21600 seconds == 6 hours
+		  # 1800 seconds == 30 minutes
+          role-duration-seconds: 1800
+
+      - name: Shared Terraform Tests
+        uses: defenseunicorns/uds-common-workflows/.github/workflows/terraform-test.yml@25-common-iac-test
+        with:
+          test_retry: 1
 ```
 
 ## Workflow Diagram
