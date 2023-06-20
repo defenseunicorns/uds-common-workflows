@@ -33,9 +33,9 @@ To set the AWS credentials, one must have:
 1. Connect to the AWS account used for CI or whatever account that will used.
 1. Find the role associated with any GitHub CI/CD work.
 1. Copy the role arn and set as a repository secret in the GitHub Repository.
-  1. Click on the repository __Settings__ --> __Secrets and Variables__ --> __Actions__ --> __New repository secret__ button.
-  1. Name like in the example or something this obvious. 
-  1. Copy contents in window.
+   1. Click on the repository __Settings__ --> __Secrets and Variables__ --> __Actions__ --> __New repository secret__ button.
+   1. Name like in the example or something this obvious.
+   1. Copy contents in window.
 1. Go back to the AWS role in the web console, clike on the __Trust relationships__ tab.
 1. Find the block of related repositories, add the new repository to the list without breaking the JSON format.
 1. Test the workflow in GitHub, the AWS Credentials action will fail if there is a misconfiguration.
@@ -52,7 +52,7 @@ permissions:
   contents: read
 ```
 
-If the secret has been properly set, repository added to the trust relationship of the role in the account, and still fails, the permissions of the workflow is often overlooked (see [example](#example_test).
+If the secret has been properly set, repository added to the trust relationship of the role in the account, and still fails, the permissions of the workflow is often overlooked (see [example](#example-test)).
 
 ## Repository Structure
 
