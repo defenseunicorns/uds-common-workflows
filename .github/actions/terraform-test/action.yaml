@@ -23,6 +23,6 @@ runs:
       run: go mod tidy
 
     - name: Test with terratest
-      bash: shell
+      shell: bash
       run: go test -count ${{ inputs.test_retry }} -v ./...
 
