@@ -111,7 +111,7 @@ jobs:
 For the workflow to complete, all steps must complete successfully.
 
 ```mermaid
-flowchart TB
+flowchart LR
   subgraph "Local Terraform Worklow"
     trigger[GitHub Pull Request Event] --> aws[AWS Credentials Action]
 
