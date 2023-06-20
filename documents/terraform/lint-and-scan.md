@@ -60,7 +60,7 @@ jobs:
 
 ## Workflow Diagram
 
-For the worklow to work, all jobs must bass for a successful pipeline.
+Requirements for a successful workflow is that all jobs must complet successfully. Currently this means both `Regula` and `Tfsec` scans must both complete without any high or critical vulnerabilities.
 
 ```mermaid
 flowchart TB
