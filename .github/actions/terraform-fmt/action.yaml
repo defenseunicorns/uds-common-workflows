@@ -9,33 +9,6 @@ inputs:
 runs:
   using: composite 
   steps:
-    # - name: Set Diff Readme recursive
-    #   id: find_readme
-    #   shell: bash
-    #   run: |
-    #     # Stash a list of all readmes found and their sha
-    #     readme_list=$(find . -print|grep -v '.git'|grep -v .terraform|grep -v .config|grep README.md)
-    #     csv_found=''
-    #     for readme in $readme_list; do
-    #       # Finds only the Readme with .tf in the dir.
-    #       directory_check=${readme:0:-9}
-    #       has_tf=$(ls $directory_check | grep .tf | wc -l)
-    #       if [ $has_tf -ge 0 ]; then 
-    #         echo "Readme found: $readme"
-    #         csv_found+="$directory_check,"
-    #       fi
-    #     done;
-    #     # removes final comma
-    #     echo "csv_readme=${csv_found%,}" >> $GITHUB_OUTPUT
-
-    # - name: Update Terraform Docs
-    #   uses: terraform-docs/gh-actions@v1.0.0
-    #   with:
-    #     working-dir: ${{ steps.find_readme.outputs.csv_readme }}
-    #     output-method: inject
-    #     git-push: false
-    #     fails-on-diff: true
-
     - name: terraform fmt
       shell: bash
       run: |
