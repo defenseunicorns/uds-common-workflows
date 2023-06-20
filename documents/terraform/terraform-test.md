@@ -45,6 +45,8 @@ jobs:
 
 ## Workflow Diagram
 
+For the workflow to complete, all steps must complete successfully.
+
 ```mermaid
 flowchart TB
   subgraph "Local Terraform Worklow"
