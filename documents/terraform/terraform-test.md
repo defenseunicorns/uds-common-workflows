@@ -18,7 +18,9 @@ For this GitHub Workflow to be utilized properly, a common structure and pattern
 
 The team has decided that credentials must be defined at the repository level and not in the shared workflow. This will allow the development team to test in the environment that they need specifically without the common workflow mandating which repository and secrets must be used.
 
-To use, make sure when the shared workflow is used that the shared workflow is called with the `secrets: inherit` flag (show in the [example test](#example_tst) section). GitHub has documented [Simplifying using secrets with resuable workflows](https://github.blog/changelog/2022-05-03-github-actions-simplify-using-secrets-with-reusable-workflows/) on how and why. 
+~~To use, make sure when the shared workflow is used that the shared workflow is called with the `secrets: inherit` flag (show in the [example test](#example_tst) section). GitHub has documented [Simplifying using secrets with resuable workflows](https://github.blog/changelog/2022-05-03-github-actions-simplify-using-secrets-with-reusable-workflows/) on how and why.~~
+
+It has been found that `secrets: inherit` is not needed when using a shared action instead of a shared workflow. The reason for using an action is due to the host repository needing to supply the credentials. Workflows cannot call a workflow after calling an action, but a workflow may call multiple actions.
 
 ## Repository Structure
 
@@ -42,8 +44,15 @@ name: Terraform Test
 on:
   pull_request:
 
+defaults:
+  run:
+    # We need -e -o pipefail for consistency with GitHub Actions' default behavior
+    shell: bash -euo pipefail
+
 jobs:
   terraform-test:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
     steps:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -55,8 +64,8 @@ jobs:
           # 1800 seconds == 30 minutes
           role-duration-seconds: 1800
 
-      - name: Shared Terraform Tests
-        uses: defenseunicorns/uds-common-workflows/.github/workflows/terraform-test.yml@25-common-iac-test
+      - name: Run Shared Test workfow
+        uses: defenseunicorns/uds-common-workflows/.github/actions/terraform-test@25-common-iac-test
         with:
           test_retry: 1
 ```
