@@ -11,7 +11,7 @@ For this GitHub Workflow to be utilized properly, a common structure and pattern
 * test_retry:
   * required: false
   * description: 'Retry count'
-  * default: 3
+  * default: 1
   * type: number
 
 ## Credentials
