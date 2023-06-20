@@ -55,6 +55,6 @@ flowchart TB
 	trigger --> clone[GitHub Clone Action]
 	clone --> tidy(Install Go dependencies)
 	tidy --> test(Go Test)
-	test --> end[End]
+	test --> endflow[End]
   end
 ```
