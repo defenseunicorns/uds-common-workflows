@@ -16,7 +16,6 @@ runs:
   using: composite
   steps:
     - name: Clone repo
-      shell: bash
       uses: actions/checkout@v3
 
     - name: Install Go Dependencies
