@@ -13,7 +13,7 @@ defaults:
     shell: bash -euo pipefail
 
 runs:
-  composite:
+  using: composite
   steps:
     - name: Clone repo
       uses: actions/checkout@v3
