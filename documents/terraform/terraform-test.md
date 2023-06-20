@@ -113,13 +113,14 @@ For the workflow to complete, all steps must complete successfully.
 ```mermaid
 flowchart TB
   subgraph "Local Terraform Worklow"
-    trigger[GitHub Pull Request Event]
-  end
+    trigger[GitHub Pull Request Event] --> aws[AWS Credentials Action]
 
-  subgraph "Terraform Test Shared Workflow"
-    trigger --> clone[GitHub Clone Action]
-    clone --> tidy(Install Go dependencies)
-    tidy --> test(Go Test)
+    subgraph "Terraform Test Shared Action"
+      aws --> clone[GitHub Clone Action]
+      clone --> tidy(Install Go dependencies)
+      tidy --> test(Go Test)
+    end
+    
     test --> endflow[End]
   end
 ```
