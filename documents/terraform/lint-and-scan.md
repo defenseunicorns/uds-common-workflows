@@ -27,7 +27,7 @@ Before Tflint or any scans are run, 2 steps have been added to the format step. 
 1. `terraform validate` will validate Terraform in the repository.
 1. Commit and push, all modified files will be commited and pushed to the same branch that triggered the action. 
 
-*Note:* Please remember to do pefrom a `git pull origin` after this pipeline runs as formatting may have occcured after the `git push origin`.
+*Note:* Please remember to run `git pull origin` after this pipeline runs as formatting may have occurred after running `git push origin`.
 
 ### [Tflint](https://github.com/terraform-linters/setup-tflint)
 
