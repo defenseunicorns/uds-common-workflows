@@ -28,7 +28,7 @@ jobs:
 
       - name: Terraform format
         # uses: defenseunicorns/uds-common-workflows/.github/actions/terraform-fmt@main
-        uses: './.github/actions/terraform-fmt'
+        uses: '\.github/actions/terraform-fmt'
         with:
           github-token: ${{ inputs.github-token }}
 
