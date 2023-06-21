@@ -71,6 +71,8 @@ Given the knowledge that not every Terraform module is the same in terms of comp
 
 Please research what is best for the specific repository, but an easy target for a baseline for testing is with the `pull_request` event. The reader has flexibility for more specific events in `pull_request` as needed depending the scope of the Terraform to be tested.
 
+**Installation:** The following can be copied and pasted into `.github/workflows/terraform-test.yaml`. Assuming the permissions, secret, AWS role trust relationship, and structure of the Go files/Terraform examples in the right place; the example should just work.
+
 ```yaml
 name: Terraform Test
 on:
