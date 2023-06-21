@@ -1,12 +1,12 @@
 # Terraform-Test
 
-The UDS Commown Workflow for Terraform has agreed to use [Terratest](https://terratest.gruntwork.io/). This testing framework does require the use of and limited knowledge of the [Go programming language](https://go.dev/). The experience needed is not extensive as there should be plenty of examples using Terratest in the Defense Unicorns Terraform repositories. 
+The UDS Common Workflow for Terraform has agreed to use [Terratest](https://terratest.gruntwork.io/). This testing framework does require the use of and limited knowledge of the [Go programming language](https://go.dev/). The experience needed is not extensive as there should be plenty of examples using Terratest in the Defense Unicorns Terraform repositories.
 
-For this GitHub Workflow to be utilized properly, a common structure and pattern has been implemented for ensuring this workflow can be reuseable for all related repositories.  Testing is a mandatory feature of all UDS packages and these shared workflows are supplied to ease the use of future development that meets the defined standards of a UDS package.
+For this GitHub Workflow to be utilized properly, a common structure and pattern has been implemented to make these workflows reusable. The goal is to make it as easy as possible to deliver tested UDS packages.
 
-*Overal Objective:* Provide testing at the repository level. Testing should include a base case and additional tests will be added as needed for common behaviors relied upon downstream from the repository when deemed necessary upon request and review by the team. 
+*Overall Objective:* Provide testing at the repository level. Testing should include a base case and additional tests will be added as needed for common behaviors relied upon downstream from the repository when deemed necessary upon request and review by the team.
 
-## Workflow Arguments 
+## Workflow Arguments
 
 * test_retry:
   * required: false
@@ -14,7 +14,7 @@ For this GitHub Workflow to be utilized properly, a common structure and pattern
   * default: 1
   * type: number
 
-*Example found found in this [section](#example-test).*
+*Example found in this [section](#example-test).*
 
 ## Credentials
 
@@ -27,26 +27,28 @@ It has been found that `secrets: inherit` is not needed when using a shared acti
 ### AWS Credentials
 
 To set the AWS credentials, one must have:
+
 * Access to the CI account.
 * Find or know the role associated with the GitHub Actions access.
-* Write permissions to the role's trust relationship. 
+* Write permissions to the role's trust relationship.
 
 **Steps to Connect to AWS:**
-1. Connect to the AWS account used for CI or whatever account that will used.
-1. Find the role associated with any GitHub CI/CD work.
-1. Copy the role arn and set as a repository secret in the GitHub Repository.
-   1. Click on the repository __Settings__ --> __Secrets and Variables__ --> __Actions__ --> __New repository secret__ button.
-   1. Name like in the example or something this obvious.
-   1. Copy contents in window.
-1. Go back to the AWS role in the web console, clike on the __Trust relationships__ tab.
-1. Find the block of related repositories, add the new repository to the list without breaking the JSON format.
-1. Test the workflow in GitHub, the AWS Credentials action will fail if there is a misconfiguration.
 
-Additional [AWS Tips blogpost](https://awstip.com/using-github-actions-oidc-to-run-terraform-in-aws-31ba395518cb) explaining the steps above in depth and AWS initialization steps.
+1. Connect to the AWS account used for CI or whatever account that will used.
+2. Find the role associated with any GitHub CI/CD work.
+3. Copy the role arn and set as a repository secret in the GitHub Repository.
+   1. Click on the repository **Settings** --> **Secrets and Variables** --> **Actions** --> **New repository secret** button.
+   2. Name like in the example or something this obvious.
+   3. Copy contents in the window.
+4. Go back to the AWS role in the web console, like on the **Trust relationships** tab.
+5. Find the block of related repositories, add the new repository to the list without breaking the JSON format.
+6. Test the workflow in GitHub, the AWS Credentials action will fail if there is a misconfiguration.
+
+Additional [AWS Tips blog post](https://awstip.com/using-github-actions-oidc-to-run-terraform-in-aws-31ba395518cb) explaining the steps above in-depth and AWS initialization steps.
 
 ## Workflow Permissions
 
-Through experimentation, the following permissions block is required to use the repository secret and the `configure-aws-credentials` action. 
+Through experimentation, the following permissions block is required to use the repository secret and the `configure-aws-credentials` action.
 
 ```yaml
 permissions:
@@ -59,13 +61,14 @@ If the secret has been properly set, repository added to the trust relationship 
 ## Repository Structure
 
 The layout required for testing uniformly are specified as followed:
+
 * All Go source files must be in a `test/` folder.
 * All Go source code must use the `test_test` module name.
   * Reason: `test` namespace is reserved and a warning will be shown.
-* The `go.mod` must reside in the root of the directory. 
+* The `go.mod` must reside in the root of the directory.
   * Necessary as the command `go test -count <count> -v ./...` will be used.
   * The `go.mod` file must be initialized with `go mod init test_test` while in the repositry root directory.
-* An `examples/` folder must be created to house the testing terraform of the module. 
+* An `examples/` folder must be created to house the testing terraform of the module.
 
 ## Example Test
 
