@@ -121,7 +121,8 @@ flowchart LR
     aws --> clone[GitHub Clone Action]
 
     subgraph "Terraform Test Shared Action"
-      clone --> tidy(Install Go dependencies)
+      clone --> goset[Install Go]
+      goset --> tidy(Install Go dependencies)
       tidy --> test(Go Test)
     end
     
