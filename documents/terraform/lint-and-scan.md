@@ -17,6 +17,18 @@ This article will explain how the `.github/workflows/terraform-scan.yaml` operat
     * default: .
     * type:string
 
+*Examples can be found in [Installation and Use](#installation-and-use).*
+
+### Format and Validate
+
+Before Tflint or any scans are run, 2 steps have been added to the format step. Upon a `push` from the repository, an action will run to peform the following steps in order. 
+
+1. `terraform fmt -recursive` will fix spacing and formatting.
+1. `terraform validate` will validate Terraform in the repository.
+1. Commit and push, all modified files will be commited and pushed to the same branch that triggered the action. 
+
+*Note:* Please remember to run `git pull origin` after this pipeline runs as formatting may have occurred after running `git push origin`.
+
 ### [Tflint](https://github.com/terraform-linters/setup-tflint)
 
 This is a Terraform linter that will do a very general look at any files with the `.tf` suffix. The action will report any linting that seems out place with regards to `type` not set properly for a variable for example. This linter will not correct anything for you and will not worry about the format of the Terraform.
@@ -46,18 +58,31 @@ jobs:
     uses: defenseunicorns/uds-common-workflows/.github/workflows/terraform-scan.yaml@main
     with:
       soft-fail: true
+      tf-dirs: . examples/complete
 ```
 
 ## Workflow Diagram
 
-For the worklow to work, all jobs must bass for a successful pipeline.
+Requirements for a succesful workflow are that all jobs must complete succesfully.
 
 ```mermaid
-flowchart LR
-
-  subgraph "Terraform Scan Workflow"
-    Start --> tflint(Tflint)
-    tflint --> tfsec(Tfsec)
-    tflint --> regula(Regula)
+flowchart TB
+  subgraph "Local Terraform Workflow"
+    push[GitHub Push Event]
   end
+
+
+  subgraph "Terraform Scan Shared Workflow"
+    push --> clone[GitHub Clone Repo]
+    clone --> tfinit(Terraform Init)
+    tfinit --> validate
+    validate(Terraform Validate) --> fmt(Terraform Format)
+    fmt --> inlinecommit(Commit and push to branch)
+    inlinecommit --> tflint
+    tflint(Tflint) --> tfsec(Tfsec)
+    tflint --> regula(Regula)
+    regula --> End
+    tfsec --> End
+  end
+
 ```

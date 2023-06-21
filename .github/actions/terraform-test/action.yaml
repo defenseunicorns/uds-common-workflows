@@ -1,0 +1,33 @@
+name: Terraform Testing
+description: Testing Terraform with Terratest
+
+inputs:
+  test_retry:
+    required: false
+    description: 'Retry count'
+    default: 1
+    type: number
+
+defaults:
+  run:
+    shell: bash -euo pipefail
+
+runs:
+  using: composite
+  steps:
+    - name: Clone repo
+      uses: actions/checkout@v3
+
+    - name: Setup Go from go.mod
+      uses: actions/setup-go@v4
+      with:
+        go-version-file: ./go.mod
+
+    - name: Install Go Dependencies
+      shell: bash
+      run: go mod tidy
+
+    - name: Test with terratest
+      shell: bash
+      run: go test -count ${{ inputs.test_retry }} -v ./...
+
