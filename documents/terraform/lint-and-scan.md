@@ -76,10 +76,8 @@ flowchart TB
     push --> clone[GitHub Clone Repo]
     clone --> tfinit(Terraform Init)
 
-    subgraph "Terraform-fmt Action"
-      fmt(Terraform Format) --> validate(Terraform Validate)
-      validate --> inlinecommit(Commit and push to branch)
-    end
+    fmt(Terraform Format) --> validate(Terraform Validate)
+    validate --> inlinecommit(Commit and push to branch)
 
     tfinit --> fmt
     inlinecommit --> tflint
