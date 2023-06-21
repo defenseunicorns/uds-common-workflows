@@ -17,7 +17,9 @@ This article will explain how the `.github/workflows/terraform-scan.yaml` operat
     * default: .
     * type:string
 
-### Formatting and Validate
+*Examples can be found in [Installation and Use](#installation-and-use).*
+
+### Format and Validate
 
 Before Tflint or any scans are run, 2 steps have been added to the format step. Upon a `push` from the repository, an action will run to peform the following steps in order. 
 
@@ -56,11 +58,12 @@ jobs:
     uses: defenseunicorns/uds-common-workflows/.github/workflows/terraform-scan.yaml@main
     with:
       soft-fail: true
+      tf-dirs: . examples/complete
 ```
 
 ## Workflow Diagram
 
-Requirements for a successful workflow is that all jobs must complet successfully. Currently this means both `Regula` and `Tfsec` scans must both complete without any high or critical vulnerabilities.
+Requirements for a succesful workflow are that all jobs must complete succesfully.
 
 ```mermaid
 flowchart TB

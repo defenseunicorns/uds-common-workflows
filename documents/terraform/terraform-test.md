@@ -14,6 +14,8 @@ For this GitHub Workflow to be utilized properly, a common structure and pattern
   * default: 1
   * type: number
 
+*Example found found in this [section](#example-test).*
+
 ## Credentials
 
 The team has decided that credentials must be defined at the repository level and not in the shared workflow. This will allow the development team to test in the environment that they need specifically without the common workflow mandating which repository and secrets must be used.
