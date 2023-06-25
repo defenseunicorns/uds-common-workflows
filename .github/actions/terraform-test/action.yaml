@@ -29,5 +29,5 @@ runs:
 
     - name: Test with terratest
       shell: bash
-      run: go test -count ${{ inputs.test_retry }} -v ./...
+      run: go test ./... -count ${{ inputs.test_retry }} -p 1 -v
 
