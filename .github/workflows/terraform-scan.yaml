@@ -29,6 +29,12 @@ jobs:
       - name: Terraform init
         run: terraform init
 
+      - name: terraform validate
+        run: terraform validate
+
+      - name: terraform fmt
+        run: terraform fmt -recursive
+
       - name: Set Diff Readme recursive
         id: find_readme
         run: |
@@ -55,12 +61,6 @@ jobs:
           output-method: inject
           git-push: false
           fails-on-diff: true
-
-      - name: terraform validate
-        run: terraform validate
-
-      - name: terraform fmt
-        run: terraform fmt -recursive
 
         # Use the GraphQL API to commit changes, so we get automatic commit signing
         # The REST contents API can't be used as easily because it only supports making single file commits
