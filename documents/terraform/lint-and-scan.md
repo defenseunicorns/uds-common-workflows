@@ -75,10 +75,10 @@ flowchart TB
   subgraph "Terraform Scan Shared Workflow"
     push --> clone[GitHub Clone Repo]
     clone --> tfinit(Terraform Init)
-    tfinit --> tfdoc[Terraform Docs]
-    tfdoc --> validate
+    tfinit --> validate
     validate(Terraform Validate) --> fmt(Terraform Format)
-    fmt --> inlinecommit(Commit and push to branch)
+    fmt --> tfdoc[Terraform Docs]
+    tfdoc --> inlinecommit(Commit and push to branch)
     inlinecommit --> tflint
     tflint(Tflint) --> tfsec(Tfsec)
     tflint --> regula(Regula)
