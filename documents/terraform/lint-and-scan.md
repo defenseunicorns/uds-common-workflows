@@ -77,7 +77,8 @@ flowchart TB
     clone --> tfinit(Terraform Init)
     tfinit --> validate
     validate(Terraform Validate) --> fmt(Terraform Format)
-    fmt --> inlinecommit(Commit and push to branch)
+    fmt --> tfdoc[Terraform Docs]
+    tfdoc --> inlinecommit(Commit and push to branch)
     inlinecommit --> tflint
     tflint(Tflint) --> tfsec(Tfsec)
     tflint --> regula(Regula)
