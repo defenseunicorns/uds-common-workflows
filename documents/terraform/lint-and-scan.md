@@ -76,7 +76,7 @@ flowchart TB
     push --> clone[GitHub Clone Repo]
     clone --> tfinit(Terraform Init)
     tfinit --> tfdoc[Terraform Docs]
-    tfdoc --> tvalidate
+    tfdoc --> validate
     validate(Terraform Validate) --> fmt(Terraform Format)
     fmt --> inlinecommit(Commit and push to branch)
     inlinecommit --> tflint
