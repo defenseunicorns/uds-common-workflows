@@ -45,6 +45,7 @@ jobs:
             fi
           done;
           # removes final comma
+          for j in ${csv_found[@]}; do echo "folder, $j"; done;
           echo "csv_readme=${csv_found%,}" >> $GITHUB_OUTPUT
 
       - name: Update Terraform Docs
