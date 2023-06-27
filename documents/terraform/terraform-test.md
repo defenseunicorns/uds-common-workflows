@@ -13,6 +13,11 @@ For this GitHub Workflow to be utilized properly, a common structure and pattern
   * description: 'Retry count'
   * default: 1
   * type: number
+* test_timeout:
+  * required: false
+  * description: Go test timeout as a string
+  * default: 30m
+  * type: string
 
 *Example found in this [section](#example-test).*
 
@@ -111,6 +116,7 @@ jobs:
         uses: defenseunicorns/uds-common-workflows/.github/actions/terraform-test@main
         with:
           test_retry: 1
+          test_timeout: 2h
 ```
 
 ## Workflow Diagram
