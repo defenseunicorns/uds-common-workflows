@@ -3,10 +3,13 @@ description: Testing Terraform with Terratest
 
 inputs:
   test_retry:
-    required: false
     description: 'Retry count'
     default: 1
     type: number
+  test_timeout:
+    description: Go test timeout as a string
+    default: 30m
+    type: string
 
 defaults:
   run:
@@ -30,5 +33,5 @@ runs:
     - name: Test with terratest
       shell: bash
       working-directory: ./test
-      run: go test -count ${{ inputs.test_retry }} -v .
+      run: go test -count ${{ inputs.test_retry }} -timeout ${{ inputs.test_timeout }} -v .
 
