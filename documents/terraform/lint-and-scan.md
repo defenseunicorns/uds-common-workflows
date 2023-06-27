@@ -39,9 +39,23 @@ The settings for this action are to have compact results and to recursively scan
 
 Tfsec is a well known and established Terraform security scanning tool. The parent company is Aqua Security and has been around the industry a while as a leader. The reports simple to read at the end and runs fairly quickly.
 
+**Arguments Implemented**
+* *soft-fail*: set to true if you dont want the action to break the build
+
 ### [Regula](https://github.com/fugue/regula-action)
 
 Regula is another impressive scanner that, when configured, can apply additional rules for scanning. Regula must be told what folders to scan (defaul is the repo root folder). Please note, regula is working even though the results may lead to improper assumptions. Regula's stock enforcement will mostly look at known providers and provide scans. Regula seems to be one of the easiest tools to optimize to add or dismiss certain rules when scanning Terraform.
+
+**Arguments Implemented**
+* *tf-dirs*: List of directories to perform the scan.
+* *regula-severity*: Minimum severity the pipeline will succeed or fail. Valid values are listed below.
+  * unknown
+  * informational
+  * low
+  * medium
+  * high
+  * critical
+  * off
 
 ## Installation and Use
 
