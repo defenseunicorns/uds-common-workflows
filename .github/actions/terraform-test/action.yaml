@@ -3,12 +3,10 @@ description: Testing Terraform with Terratest
 
 inputs:
   test_retry:
-    required: false
     description: 'Retry count'
     default: 1
     type: number
   test_timeout:
-    required: false
     description: Go test timeout as a string
     default: 30m
     type: string
