@@ -168,7 +168,7 @@ jobs:
         run: ls -lsa
 
       - name: Scan with Regula
-        uses: fugue/regula-action@v3
+        uses: fugue/regula-action@v3.2.1
         with:
           input_path: ${{ inputs.tf-dirs }}
           input_type: tf
