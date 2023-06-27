@@ -35,5 +35,5 @@ runs:
     - name: Test with terratest
       shell: bash
       working-directory: ./test
-      run: go test -count ${{ inputs.test_retry }} -v .
+      run: go test -count ${{ inputs.test_retry }} -timeout ${{ inputs.test_timeout }} -v .
 
