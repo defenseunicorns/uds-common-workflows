@@ -172,4 +172,4 @@ jobs:
         with:
           input_path: ${{ inputs.tf-dirs }}
           input_type: tf
-          serverity: ${{ inputs.regula-severity }}
+          severity: ${{ inputs.regula-severity }}
