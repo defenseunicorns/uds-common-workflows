@@ -3,19 +3,21 @@ name: terraform-lint-scan
 on:
   workflow_call:
     inputs:
+      github-token:
+        required: true
+        description: GitHub token
+        type: string
+      regula-severity:
+        description: Set the minimum threshold Regula needs exit with a non-zero value (failing the pipeline)
+        default: high
+        type: string
       soft-fail:
-        required: false 
         description: 'Tfsec to hard stop the pipeline or not when vulnerabilities are found'
         default: true
         type: boolean
       tf-dirs:
-        required: false
         description: 'Regula variable for terraform directories, either space or new line separated'
         default: '.'
-        type: string
-      github-token:
-        required: true
-        description: GitHub token
         type: string
 
 run-name: ${{ github.actor }} is scanning Terraform in ${{ github.repository }}
@@ -170,3 +172,4 @@ jobs:
         with:
           input_path: ${{ inputs.tf-dirs }}
           input_type: tf
+          severity: ${{ inputs.regula-severity }}
