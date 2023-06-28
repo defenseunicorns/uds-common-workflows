@@ -162,7 +162,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repo
-        uses: actions/checkout@v3.2.1
+        uses: actions/checkout@v3
 
       - name: List Directories
         run: ls -lsa
