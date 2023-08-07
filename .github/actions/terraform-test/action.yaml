@@ -29,7 +29,7 @@ runs:
       uses: actions/setup-go@v4
       working-directory: ${{ inputs.test_dir }}
       with:
-        go-version-file: ./go.mod
+        go-version-file: ./${{ inputs.test_dir }}/go.mod
 
     - name: Install Go Dependencies
       shell: bash
