@@ -10,6 +10,10 @@ inputs:
     description: Go test timeout as a string
     default: 30m
     type: string
+  test_dir:
+    description: Testing directory used as workflow working directory.
+    default: ./test
+    type: string
 
 defaults:
   run:
@@ -23,15 +27,17 @@ runs:
 
     - name: Setup Go from go.mod
       uses: actions/setup-go@v4
+      working-directory: ${{ inputs.test_dir }}
       with:
         go-version-file: ./go.mod
 
     - name: Install Go Dependencies
       shell: bash
+      working-directory: ${{ inputs.test_dir }}
       run: go mod tidy
 
     - name: Test with terratest
       shell: bash
-      working-directory: ./test
+      working-directory: ${{ inputs.test_dir }}
       run: go test -count ${{ inputs.test_retry }} -timeout ${{ inputs.test_timeout }} -v .
 
