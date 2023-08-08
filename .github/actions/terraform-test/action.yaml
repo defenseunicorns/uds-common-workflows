@@ -27,7 +27,6 @@ runs:
 
     - name: Setup Go from go.mod
       uses: actions/setup-go@v4
-      working-directory: ${{ inputs.test_dir }}
       with:
         go-version-file: ./${{ inputs.test_dir }}/go.mod
 
