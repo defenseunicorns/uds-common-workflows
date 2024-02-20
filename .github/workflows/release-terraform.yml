@@ -29,8 +29,6 @@ jobs:
         uses: google-github-actions/release-please-action@v3
         with:
           command: ${{ inputs.command }}
-          release-type: ${{ inputs.release-type }} 
+          release-type: ${{ inputs.release-type }}
       - id: release-flag
         run: echo "release_created=${{ steps.tag.outputs.release_created || false }}" >> $GITHUB_OUTPUT
-
-        
