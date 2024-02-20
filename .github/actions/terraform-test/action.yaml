@@ -25,6 +25,10 @@ runs:
     - name: Clone repo
       uses: actions/checkout@v3
 
+    - uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: "1.5.7"
+
     - name: Setup Go from go.mod
       uses: actions/setup-go@v4
       with:
